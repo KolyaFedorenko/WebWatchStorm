@@ -1,0 +1,205 @@
+@import url('https://fonts.googleapis.com/css2?family=Roboto:wght@500&display=swap');
+
+@font-face {
+    font-family: 'Roboto', sans-serif;
+}
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box
+}
+
+body,
+html {
+    height: 100%;
+    font-family: Roboto, sans-serif;
+}
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+    margin: 0
+}
+
+.login100-form {
+    width: 100%;
+    padding-top: 20px;
+    padding-bottom: 20px;
+}
+
+.movies-list{
+    width: 100%;
+    min-height: 100vh;
+    display: flex;
+    flex-wrap: wrap;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    background-color: #272727;
+    padding-bottom: 15px;
+}
+
+.movie-item {
+    width: 390px;
+    background: #424242;
+    border-radius: 20px;
+    overflow: hidden;
+    margin-top: 15px;
+    filter: brightness(1);
+    transition-duration: 500ms;
+}
+
+.movie-header{
+    margin-left: 20px;
+    display: inline-block;
+}
+
+.movie-image{
+    width: 50px;
+    height: 50px;
+    object-fit: cover;
+    border-radius: 50%;
+}
+
+.movie-title-and-year{
+    margin-left: 10px;
+    display: inline-block;
+    position: relative;
+    top: 25%;
+    transform: translateY(-25%);
+}
+
+.movie-title{
+    color: white;
+    font-size: 14px;
+}
+
+.movie-year{
+    color: white;
+    font-size: 12px;
+    filter: opacity(0.5);
+    display: block;
+    margin-top: 2px;
+}
+
+.movie-container{
+    background-color: #5A5A5A;
+    border-radius: 15px;
+    width: 350px;
+    margin-top: 10px;
+    padding-left: 20px;
+    padding-right: 20px;
+    padding-top: 10px;
+    padding-bottom: 10px;
+}
+
+.default-text{
+    color: white;
+    font-size: 12px;
+}
+
+.movie-item:hover {
+    filter: brightness(1.2);
+    transition-duration: 500ms;
+    cursor: pointer;
+}
+
+.rating-container{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+progress{
+    position: relative;
+    display: inline-block;
+    height: 5px;
+    border-radius: 5px;
+    overflow: hidden;
+    background: #FFF553;
+    margin-left: 10px;
+    margin-right: 10px;
+}
+
+progress::-moz-progress-bar {
+    background: #FFF553;
+}
+
+progress::-webkit-progress-value {
+    background: #FFF553; 
+}
+
+.menu-header{
+    background: #313131;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 75px;
+    transition-duration: 1s;
+}
+
+.sidebar {
+    position: fixed;
+    width: 250px;
+    height: 100%;
+    background: #424242;
+    transition: all .5s ease;
+  }
+
+  .sidebar header {
+    font-size: 16px;
+    color: white;
+    user-select: none;
+    margin-left: 10px;
+  }
+
+  .sidebar ul a{
+    display: block;
+    height: 100%;
+    width: 100%;
+    line-height: 65px;
+    font-size: 14px;
+    color: white;
+    padding-left: 20px;
+    box-sizing: border-box;
+    transition: .4s;
+    text-decoration: none;
+  }
+
+  ul li:hover a{
+    background: #5A5A5A;
+  }
+
+  .sidebar ul a i{
+    margin-right: 16px;
+  }
+
+  label #btn,label #cancel{
+    position: absolute;
+    background: #042331;
+    border-radius: 3px;
+    cursor: pointer;
+  }
+  
+  label #btn{
+    left: 40px;
+    top: 25px;
+    font-size: 35px;
+    color: white;
+    padding: 6px 12px;
+    transition: all .5s;
+  }
+
+  label #cancel{
+    z-index: 1111;
+    left: -195px;
+    top: 17px;
+    font-size: 30px;
+    color: #0a5275;
+    padding: 4px 9px;
+    transition: all .5s ease;
+  }

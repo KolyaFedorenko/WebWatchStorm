@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html lang="ru">
+
+<head>
+	<title>Distribution</title>
+	<link rel="stylesheet" type="text/css" href="styles/styles.css">
+	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.1/css/all.min.css"/>
+</head>
+
+<body>
+	<div class="limiter">
+		<div class="sidebar">
+			<div id="menuHeader" class="menu-header">
+				<img id="logo" src="images/watchstorm-icon.png" style="max-width: 12%; height: auto; transition-duration: 1s;">
+				<header id="appname" style="transition-duration: 1000ms;">WatchStorm</header>
+			</div>
+			<ul>
+				<li><a href="#"><i class="fa-solid fa-film"></i>My Movies</a></li>
+				<li><a href="#"><i class="fa-solid fa-plus"></i>Add New Movie</a></li>
+				<li><a href="#"><i class="fa-solid fa-heart"></i>My Favorite Movies</a></li>
+				<li><a href="#"><i class="fa-solid fa-mobile-screen-button"></i>WatchStorm Mobile</a></li>
+				<li><a href="#"><i class="fa-solid fa-circle-arrow-left"></i>Sign Out</a></li>
+				<li><a href="#"><i class="fa-solid fa-lock"></i>Change My Password</a></li>
+				<li><a href="#"><i class="fa-solid fa-trash"></i>Delete My Account</a></li>
+			</ul>
+	   </div>
+		<div id="moviesList" class="movies-list">
+			<div class="movie-item">
+				<div class="login100-form validate-form">
+					<div class="movie-header">
+						<img class="movie-image" src="${movies[movie].imagePath}">
+						<div class="movie-title-and-year">
+							<span class="movie-title">${movies[movie].title}</span>
+							<span class="movie-year">${movies[movie].year}</span>
+						</div>
+						<div class="description movie-container">
+							<span class="default-text">${movies[movie].description}</span>
+						</div>
+						<div class="ratings movie-container" style="padding-top: 15px; padding-bottom: 15px;">
+							<div class="visual rating-container">
+								<span class="default-text">
+									Visual Rating:
+								</span>
+								<progress value="80" max="100"></progress>
+								<span class="default-text">
+									80%
+								</span>
+							</div>
+							<div class="cast rating-container" style="margin-top: 5px; width: 103%;">
+								<span class="default-text">
+									Cast Rating:
+								</span>
+								<progress value="80" max="100"></progress>
+								<span class="default-text">
+									80%
+								</span>
+							</div>
+							<div class="plot rating-container" style="margin-top: 5px; width: 104%;">
+								<span class="default-text">
+									Plot Rating:
+								</span>
+								<progress value="80" max="100"></progress>
+								<span class="default-text">
+									80%
+								</span>
+							</div>
+						</div>
+						<div class="average-ratings movie-container" style="padding-top: 15px; padding-bottom: 15px;">
+							<div class="your-average-rating rating-container">
+								<span class="default-text">
+									Your Average Rating:
+								</span>
+								<progress value="80" max="100" style="width: 39%;"></progress>
+								<span class="default-text">
+									80%
+								</span>
+							</div>
+							<div class="audience-average-rating rating-container">
+								<span class="default-text" style="margin-top: 5px;">
+									Audience Average Rating:
+								</span>
+								<progress value="80" max="100" style="width: 30.5%;"></progress>
+								<span class="default-text">
+									80%
+								</span>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+	<script type="module" src="scripts/firebase-connector.js"></script>
+	<script type="text/javascript" src="scripts/header-script.js"></script>
+</body>
+
+</html>
