@@ -28,68 +28,74 @@ function getLatestVersion(){
             let movieItem = 
             `
             <div class="movie-item">
-                <div class="login100-form validate-form">
-                    <div class="movie-header">
-                        <img class="movie-image" src="${movies[movie].imagePath}">
-                        <div class="movie-title-and-year">
-                            <span class="movie-title">${movies[movie].title}</span>
-                            <span class="movie-year">${movies[movie].year}</span>
-                        </div>
-                        <div class="description movie-container">
-                            <span class="default-text">${movies[movie].description}</span>
-                        </div>
-                        <div class="ratings movie-container" style="padding-top: 15px; padding-bottom: 15px;">
-                            <div class="visual rating-container">
-                                <span class="default-text">
-                                    Visual Rating:
-                                </span>
-                                <progress value="${movies[movie].visualRating}" max="100"></progress>
-                                <span class="default-text">
-                                    ${movies[movie].visualRating}%
-                                </span>
-                            </div>
-                            <div class="cast rating-container" style="margin-top: 5px; width: 103%;">
-                                <span class="default-text">
-                                    Cast Rating:
-                                </span>
-                                <progress value="${movies[movie].castRating}" max="100"></progress>
-                                <span class="default-text">
+				<div class="login100-form validate-form">
+					<div class="movie-header">
+						<img class="movie-image" src="${movies[movie].imagePath}">
+						<div class="movie-title-and-year">
+							<span class="movie-title">${movies[movie].title}</span>
+							<span class="movie-year">${movies[movie].year}</span>
+						</div>
+						<div class="description movie-container">
+							<span class="default-text">${movies[movie].description}</span>
+						</div>
+						<div class="ratings movie-container" style="padding-top: 10px; padding-bottom: 10px; display: inline-flex; justify-content: center;">
+							<div class="ratings-container" style="width: 30%;">
+								<span class="default-text rating-name">
+									Visual Rating:
+								</span>
+								<span class="default-text rating-name">
+									Cast Rating:
+								</span>
+								<span class="default-text rating-name">
+									Plot Rating:
+								</span>
+							</div>
+							<div class="ratings-values-container" style="width: 52%; margin-left: 10px;">
+								<div style="width: 100%; height: 100%;">
+									<progress value="${movies[movie].visualRating}" max="100" style="vertical-align: top; margin-top: 12px"></progress>
+									<progress value="${movies[movie].castRating}" max="100" style="margin-top: 15px;"></progress>
+									<progress value="${movies[movie].plotRating}" max="100" style="margin-top: 16px;"></progress>
+								</div>
+							</div>
+							<div class="ratings-container" style="width: 10%; margin-left: 20px;">
+								<span class="default-text rating-name">
+									${movies[movie].visualRating}%
+								</span>
+								<span class="default-text rating-name">
                                     ${movies[movie].castRating}%
-                                </span>
-                            </div>
-                            <div class="plot rating-container" style="margin-top: 5px; width: 104%;">
-                                <span class="default-text">
-                                    Plot Rating:
-                                </span>
-                                <progress value="${movies[movie].plotRating}" max="100"></progress>
-                                <span class="default-text">
+								</span>
+								<span class="default-text rating-name">
                                     ${movies[movie].plotRating}%
-                                </span>
-                            </div>
-                        </div>
-                        <div class="average-ratings movie-container" style="padding-top: 15px; padding-bottom: 15px;">
-                            <div class="your-average-rating rating-container">
-                                <span class="default-text">
-                                    Your Average Rating:
-                                </span>
-                                <progress value="${movies[movie].compositeRating}" max="100" style="width: 39%;"></progress>
-                                <span class="default-text">
-                                    ${movies[movie].compositeRating}%
-                                </span>
-                            </div>
-                            <div class="audience-average-rating rating-container">
-                                <span class="default-text" style="margin-top: 5px;">
-                                    Audience Average Rating:
-                                </span>
-                                <progress value="${movies[movie].usersAverageRating}" max="100" style="width: 30.5%;"></progress>
-                                <span class="default-text">
+								</span>
+							</div>
+						</div>
+						<div class="average-ratings movie-container" style="padding-top: 10px; padding-bottom: 10px; display: inline-flex; justify-content: center;">
+							<div class="ratings-container" style="width: 53%;">
+								<span class="default-text rating-name">
+									Your average rating:
+								</span>
+								<span class="default-text rating-name">
+									Audience average rating:
+								</span>
+							</div>
+							<div class="ratings-values-container" style="width: 30%; margin-left: 10px;">
+								<div style="width: 100%; height: 100%;">
+									<progress value="${movies[movie].compositeRating}" max="100" style="vertical-align: top; margin-top: 12px; width: 100%;"></progress>
+									<progress value="${movies[movie].usersAverageRating}" max="100" style="margin-top: 15px; width: 100%;"></progress>
+								</div>
+							</div>
+							<div class="ratings-container" style="width: 10%; margin-left: 20px;">
+								<span class="default-text rating-name">
+									${movies[movie].compositeRating}%
+								</span>
+								<span class="default-text rating-name">
                                     ${movies[movie].usersAverageRating}%
-                                </span>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
+								</span>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
             `
             moviesList.innerHTML += movieItem;
             console.log(movies[movie].title);

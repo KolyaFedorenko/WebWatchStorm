@@ -1,8 +1,4 @@
-@import url('https://fonts.googleapis.com/css2?family=Roboto:wght@500&display=swap');
-
-@font-face {
-    font-family: 'Roboto', sans-serif;
-}
+@import url('https://fonts.googleapis.com/css2?family=Roboto:wght@400&display=swap');
 
 * {
     margin: 0;
@@ -75,12 +71,12 @@ h6 {
 
 .movie-title{
     color: white;
-    font-size: 14px;
+    font-size: 16px;
 }
 
 .movie-year{
     color: white;
-    font-size: 12px;
+    font-size: 14px;
     filter: opacity(0.5);
     display: block;
     margin-top: 2px;
@@ -99,7 +95,7 @@ h6 {
 
 .default-text{
     color: white;
-    font-size: 12px;
+    font-size: 14px;
 }
 
 .movie-item:hover {
@@ -108,10 +104,9 @@ h6 {
     cursor: pointer;
 }
 
-.rating-container{
-    display: flex;
-    align-items: center;
-    justify-content: center;
+.rating-name{
+    display: block;
+    margin-top: 5px;
 }
 
 progress{
@@ -121,8 +116,6 @@ progress{
     border-radius: 5px;
     overflow: hidden;
     background: #FFF553;
-    margin-left: 10px;
-    margin-right: 10px;
 }
 
 progress::-moz-progress-bar {
