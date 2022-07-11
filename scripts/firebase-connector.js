@@ -17,17 +17,17 @@ const app = initializeApp(firebaseConfig);
 const analytics = getAnalytics(app);
 
 const db = getDatabase();
+const dbRef = ref(db);
 
 const moviesList = document.getElementById("moviesList");
 
-function getLatestVersion(){
-    const dbRef = ref(db);
-    get(child(dbRef, "WatchStorm/KolyaFedorenko/Movies/")).then((snapshot) => {
+function getUserMovies(username){
+    get(child(dbRef, "WatchStorm/" + username + "/Movies/")).then((snapshot) => {
         let movies = snapshot.val();
         for (let movie in movies) {
             let movieItem = 
             `
-            <div class="movie-item">
+            <div class="movie-item" style="cursor:pointer;">
 				<div class="login100-form validate-form">
 					<div class="movie-header">
 						<img class="movie-image" src="${movies[movie].imagePath}">
@@ -103,6 +103,134 @@ function getLatestVersion(){
     })
 }
 
+function showAuthorizationDialog(){
+	let moviesList = document.getElementById("moviesList");
+
+    moviesList.innerHTML += 
+    `
+    <div class="movie-item">
+        <div id="authorizationForm" class="login100-form validate-form">
+            <div style="display: flex; justify-content: center;">
+                <img src="images/watchstorm-icon.png" style="width: 30%; height: 30%">
+            </div>
+            <div style="display: flex; justify-content: center;">
+                <header style="color: white; font-weight: 500; font-size: 20px ;margin-top: 10px;">WatchStorm Web</header>
+            </div>
+            <div style="display: flex; justify-content: center;">
+                <div class="description movie-container">
+                    <span class="default-text">Welcome to the web version of Watch 
+                        Storm! To log in, enter your username and the 6-digit code
+                        that you specified in the mobile application to access the
+                        web version of WatchStorm. If you haven't specified it yet,
+                        go to the settings of the Watch Storm mobile application
+                        and click the "Watch Storm Web" section, and then specify
+                        and save a 6-digit code to access the web version of
+                        WatchStorm, after which you can log in here.</span>
+                </div>
+            </div>
+            <div style="display: flex; justify-content: center;">
+                <div class="input-fields-container movie-container" style="margin-top: 10px; padding: 20px;">
+                    <div style="display: flex; justify-content: center;">
+                        <input id="loginField" class="input-field" placeholder="Your Username">
+                    </div>
+                    <div style="display: flex; justify-content: center; margin-top: 10px;">
+                        <input id="digitCodeField" class="input-field" placeholder="6-digit code">
+                    </div>
+                    <div style="display: flex; justify-content: center; margin-top: 10px;">
+                        <button id="buttonSignIn" class="button-login">Sign In</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>   
+    `
+
+	let loginField = document.getElementById("loginField");
+	let digitCodeField = document.getElementById("digitCodeField");
+	let buttonSignIn = document.getElementById("buttonSignIn");
+
+	buttonSignIn.onclick = function() {
+		let userLogin = loginField.value;
+		let userDigitCode = digitCodeField.value;
+
+		get(child(dbRef, `WatchStormWeb/WebCodes/${userLogin}`)).then((snapshot) => {
+			let receivedDigitCode = snapshot.val();
+			if (userDigitCode == receivedDigitCode) {
+				setCookie('username', userLogin, {});
+				setCookie('digitCode', userDigitCode, {});
+				closeAuthorizationDialog();
+				showSidebar();
+				getUserMovies(userLogin);
+			} 
+			else {
+				alert("wrong");
+			}
+		});
+	}
+}
+
+function closeAuthorizationDialog() {
+	let authorizationForm = document.getElementById("authorizationForm");
+	authorizationForm.parentElement.removeChild(authorizationForm);
+}
+
+function showSidebar() {
+	let sidebar = document.getElementById("sidebar");
+	sidebar.style.transform = "translate(0px, 0px)";
+}
+
+function getCookie(name) {
+	let matches = document.cookie.match(new RegExp(
+	  "(?:^|; )" + name.replace(/([\.$?*|{}\(\)\[\]\\\/\+^])/g, '\\$1') + "=([^;]*)"
+	));
+	return matches ? decodeURIComponent(matches[1]) : undefined;
+}
+
+function setCookie(name, value, options = {}) {
+	options = {
+		path: '/',
+		expires: 'Tue, 19 Jan 2038 03:14:07 GMT',
+		...options
+	};
+
+	if (options.expires instanceof Date) {
+		options.expires = options.expires.toUTCString();
+	}
+
+	let updatedCookie = encodeURIComponent(name) + "=" + encodeURIComponent(value);
+
+	for (let optionKey in options) {
+			updatedCookie += "; " + optionKey;
+			let optionValue = options[optionKey];
+			if (optionValue !== true) {
+			updatedCookie += "=" + optionValue;
+		}
+	}
+
+	document.cookie = updatedCookie;
+}  
+
+function authorizeIfUserSaved() {
+	let savedUsername = getCookie("username");
+	let savedDigitCode = getCookie("digitCode");
+
+	if(savedUsername != null) {
+		get(child(dbRef, `WatchStormWeb/WebCodes/${savedUsername}`)).then((snapshot) => {
+			let receivedDigitCode = snapshot.val();
+			if (savedDigitCode == receivedDigitCode) {
+				showSidebar();
+				getUserMovies(savedUsername);
+			} 
+			else {
+				showAuthorizationDialog();
+			}
+		});
+	}
+	else{
+		showAuthorizationDialog();
+	}
+}
+
 window.onload = function(){
-    getLatestVersion();
+	authorizeIfUserSaved();
 }
