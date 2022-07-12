@@ -1,6 +1,8 @@
 import { initializeApp } from "https://www.gstatic.com/firebasejs/9.8.0/firebase-app.js";
 import { getAnalytics } from "https://www.gstatic.com/firebasejs/9.8.0/firebase-analytics.js";
 import {getDatabase, ref, get, set, child, update, remove} from "https://www.gstatic.com/firebasejs/9.8.0/firebase-database.js";
+import { getStorage, getDownloadURL } from "https://www.gstatic.com/firebasejs/9.8.0/firebase-storage.js";
+import { ref as sRef } from "https://www.gstatic.com/firebasejs/9.8.0/firebase-storage.js";
 
 const firebaseConfig = {
     apiKey: "AIzaSyBq5ny6wmV1Mef-M3yS5tNL3Zf5CXYUtcY",
@@ -17,6 +19,8 @@ const app = initializeApp(firebaseConfig);
 const analytics = getAnalytics(app);
 
 const db = getDatabase();
+const storage = getStorage(app);
+
 const dbRef = ref(db);
 
 const moviesList = document.getElementById("moviesList");
@@ -160,6 +164,7 @@ function showAuthorizationDialog(){
 				setCookie('digitCode', userDigitCode, {});
 				closeAuthorizationDialog();
 				showSidebar();
+				updateUserDataInSidebar(userLogin);
 				getUserMovies(userLogin);
 			} 
 			else {
@@ -210,7 +215,7 @@ function setCookie(name, value, options = {}) {
 	document.cookie = updatedCookie;
 }  
 
-function authorizeIfUserSaved() {
+function authorizeUser() {
 	let savedUsername = getCookie("username");
 	let savedDigitCode = getCookie("digitCode");
 
@@ -219,6 +224,7 @@ function authorizeIfUserSaved() {
 			let receivedDigitCode = snapshot.val();
 			if (savedDigitCode == receivedDigitCode) {
 				showSidebar();
+				updateUserDataInSidebar(savedUsername);
 				getUserMovies(savedUsername);
 			} 
 			else {
@@ -231,6 +237,27 @@ function authorizeIfUserSaved() {
 	}
 }
 
+function updateUserDataInSidebar(username) {
+	let headersContainer = document.getElementById("headersContainer");
+
+	getDownloadURL(sRef(storage, `${username}/Images/ProfileImage`)).then((url) => {
+		headersContainer.innerHTML +=
+		`
+		<div id="userInfoHeader" class="user-info-header">
+			<div class="user-info-container">
+				<img id="userProfileImage" src="images/profile-image-placeholder.png" style="max-width: 12%; height: auto; border-radius: 20px ; float: left;">
+				<div style="height: 30px; display: flex; align-items: center; width: 20px;">
+					<header id="username" style="transition-duration: 1000ms; font-weight: 500; font-size: 14px ; width: 20px; float: left;">${username}</header>
+				</div>
+			</div>
+		</div>
+		`
+
+		let userProfileImage = document.getElementById("userProfileImage");
+		setTimeout(()=> userProfileImage.src = url, 100);
+	});
+}
+
 window.onload = function(){
-	authorizeIfUserSaved();
+	authorizeUser();
 }

@@ -240,3 +240,26 @@ progress::-webkit-progress-value {
     cursor: pointer;
     transition-duration: 500ms;
   }
+
+  .user-info-header{
+    background: #3d3d3d;
+    height: 60px;
+    transition-duration: 1s;
+    padding-top: 15px;
+    padding-left: 15px;
+  }
+
+  .user-info-container{
+    animation-duration: 1s;
+    animation-name: translate-user-info-container;
+  }
+
+  @keyframes translate-user-info-container {
+    from {
+      transform: translateX(-120px);
+    }
+
+    to {
+      transform: translateX(0px);
+    }
+  }
