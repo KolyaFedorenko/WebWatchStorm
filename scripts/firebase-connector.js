@@ -213,7 +213,13 @@ function setCookie(name, value, options = {}) {
 	}
 
 	document.cookie = updatedCookie;
-}  
+}
+
+function deleteCookie(name) {
+	setCookie(name, "", {
+	  'max-age': -1
+	})
+  }
 
 function authorizeUser() {
 	let savedUsername = getCookie("username");
@@ -255,7 +261,26 @@ function updateUserDataInSidebar(username) {
 
 		let userProfileImage = document.getElementById("userProfileImage");
 		setTimeout(()=> userProfileImage.src = url, 100);
+		addOnSignOutListener();
 	});
+}
+
+function addOnSignOutListener(){
+	let signOutButton = document.getElementById("signOutButton");
+	signOutButton.onclick = function(){
+		let moviesList = document.getElementById("moviesList");
+		let sidebar = document.getElementById("sidebar");
+		let userInfoHeader = document.getElementById("userInfoHeader");
+
+		moviesList.innerHTML = '';
+		sidebar.style.transform = "translate(-250px, 0px)";
+		userInfoHeader.remove();
+
+		deleteCookie("username");
+		deleteCookie("digitCode");
+		
+		showAuthorizationDialog();
+	}
 }
 
 window.onload = function(){
