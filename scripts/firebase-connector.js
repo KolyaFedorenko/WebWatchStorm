@@ -25,7 +25,7 @@ const dbRef = ref(db);
 
 const moviesList = document.getElementById("moviesList");
 
-function getUserMovies(username){
+function getUserMovies(username, favorite){
     get(child(dbRef, "WatchStorm/" + username + "/Movies/")).then((snapshot) => {
         let movies = snapshot.val();
         for (let movie in movies) {
@@ -101,7 +101,14 @@ function getUserMovies(username){
 				</div>
 			</div>
             `
-            moviesList.innerHTML += movieItem;
+			if (favorite) {
+				if (movies[movie].compositeRating == 100) {
+					moviesList.innerHTML += movieItem;
+				}
+			}
+			else {
+				moviesList.innerHTML += movieItem;
+			}
             console.log(movies[movie].title);
         }
     })
@@ -165,7 +172,9 @@ function showAuthorizationDialog(){
 				closeAuthorizationDialog();
 				showSidebar();
 				updateUserDataInSidebar(userLogin);
-				getUserMovies(userLogin);
+				getUserMovies(userLogin, false);
+				addOnFavoriteMoviesButtonClickListener(userLogin);
+				addOnMoviesButtonClickListener(userLogin);
 			} 
 			else {
 				alert("wrong");
@@ -231,7 +240,9 @@ function authorizeUser() {
 			if (savedDigitCode == receivedDigitCode) {
 				showSidebar();
 				updateUserDataInSidebar(savedUsername);
-				getUserMovies(savedUsername);
+				getUserMovies(savedUsername, false);
+				addOnFavoriteMoviesButtonClickListener(savedUsername);
+				addOnMoviesButtonClickListener(savedUsername);
 			} 
 			else {
 				showAuthorizationDialog();
@@ -249,11 +260,16 @@ function updateUserDataInSidebar(username) {
 	getDownloadURL(sRef(storage, `${username}/Images/ProfileImage`)).then((url) => {
 		headersContainer.innerHTML +=
 		`
-		<div id="userInfoHeader" class="user-info-header">
+		<div id="userInfoHeader" class="user-info-header" style="height: 200px; background: #3d3d3d; padding-top: 15px; padding-bottom: 15px;">
 			<div class="user-info-container">
-				<img id="userProfileImage" src="images/profile-image-placeholder.png" style="max-width: 12%; height: auto; border-radius: 20px ; float: left;">
-				<div style="height: 30px; display: flex; align-items: center; width: 20px;">
-					<header id="username" style="transition-duration: 1000ms; font-weight: 500; font-size: 14px ; width: 20px; float: left;">${username}</header>
+				<div style="display:flex; align-items:center; justify-content:center;">
+					<img id="userProfileImage" src="images/profile-image-placeholder.png" style="max-width: 50%; height: auto; transition-duration: 1s; border-radius: 50%;">
+				</div>
+				<div style="display:flex; align-items:center; justify-content:center; margin-top: 10px;">
+					<header id="username" style="transition-duration: 1000ms; font-weight: 500; font-size: 16px ;">${username}</header>
+				</div>
+				<div style="display:flex; align-items:center; justify-content:center; margin-top: 2px;">
+					<header id="userLogin" style="transition-duration: 1000ms; font-weight: 400; font-size: 12px; filter: opacity(0.5);">@${username.toLowerCase()}</header>
 				</div>
 			</div>
 		</div>
@@ -280,6 +296,22 @@ function addOnSignOutListener(){
 		deleteCookie("digitCode");
 		
 		showAuthorizationDialog();
+	}
+}
+
+function addOnFavoriteMoviesButtonClickListener(username){
+	let favoriteMoviesButton = document.getElementById("favoriteMoviesButton");
+	favoriteMoviesButton.onclick = function() {
+		moviesList.innerHTML = '';
+		getUserMovies(username, true);
+	}
+}
+
+function addOnMoviesButtonClickListener(username){
+	let moviesButton = document.getElementById("moviesButton");
+	moviesButton.onclick = function() {
+		moviesList.innerHTML = '';
+		getUserMovies(username, false);
 	}
 }
 

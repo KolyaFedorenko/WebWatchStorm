@@ -165,15 +165,14 @@ progress::-webkit-progress-value {
     font-size: 16px;
     color: white;
     user-select: none;
-    margin-left: 10px;
   }
 
   .sidebar ul a{
     display: block;
     height: 100%;
     width: 100%;
-    line-height: 65px;
-    font-size: 14px;
+    line-height: 100px;
+    font-size: 16px;
     color: white;
     padding-left: 20px;
     box-sizing: border-box;
@@ -242,21 +241,33 @@ progress::-webkit-progress-value {
   }
 
   .user-info-header{
-    background: #3d3d3d;
-    height: 60px;
-    transition-duration: 1s;
-    padding-top: 15px;
-    padding-left: 15px;
+    transform-origin: top;
+    animation-duration: 1500ms;
+    animation-name: scale-user-info-header;
+  }
+
+  @keyframes scale-user-info-header {
+    from {
+      transform: scaleY(0);
+    }
+
+    to {
+      transform: scaleY(1);
+    }
   }
 
   .user-info-container{
-    animation-duration: 1s;
+    animation-duration: 2s;
     animation-name: translate-user-info-container;
   }
 
   @keyframes translate-user-info-container {
     from {
-      transform: translateX(-120px);
+      transform: translateX(-300px);
+    }
+
+    50%{
+      transform: translateX(-300px);
     }
 
     to {
