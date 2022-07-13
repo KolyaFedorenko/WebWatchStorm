@@ -175,6 +175,7 @@ function showAuthorizationDialog(){
 				getUserMovies(userLogin, false);
 				addOnFavoriteMoviesButtonClickListener(userLogin);
 				addOnMoviesButtonClickListener(userLogin);
+				addOnAddNewMovieListener();
 			} 
 			else {
 				alert("wrong");
@@ -243,6 +244,7 @@ function authorizeUser() {
 				getUserMovies(savedUsername, false);
 				addOnFavoriteMoviesButtonClickListener(savedUsername);
 				addOnMoviesButtonClickListener(savedUsername);
+				addOnAddNewMovieListener();
 			} 
 			else {
 				showAuthorizationDialog();
@@ -312,6 +314,22 @@ function addOnMoviesButtonClickListener(username){
 	moviesButton.onclick = function() {
 		moviesList.innerHTML = '';
 		getUserMovies(username, false);
+	}
+}
+
+function addOnAddNewMovieListener(){
+	let addNewMovieButton = document.getElementById("addNewMovieButton");
+	addNewMovieButton.onclick = function() {
+		let addMovieDialog = document.getElementById("addMovieDialog");
+		addMovieDialog.showModal();
+		addMovieDialog.addEventListener('click', function (event) {
+			let rect = addMovieDialog.getBoundingClientRect();
+			let isInDialog = (rect.top <= event.clientY && event.clientY <= rect.top + rect.height
+			  && rect.left <= event.clientX && event.clientX <= rect.left + rect.width);
+			if (!isInDialog) {
+				addMovieDialog.close();
+			}
+		});
 	}
 }
 

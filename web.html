@@ -8,6 +8,31 @@
 </head>
 
 <body>
+	<dialog id="addMovieDialog" class="movie-item" style="position: fixed; z-index: 2; margin: auto;">
+		<div class="login100-form validate-form" style="padding-left: 20px; padding-right: 20px;">
+			<div style="display: flex; justify-content: center;">
+				<input id="movieTitleField" class="input-field dialog-input" placeholder="Movie Title" style="width: 145px;">
+				<button id="buttonSearchMovie" class="button-login" style="width: 40px; margin-left: 10px;">
+					<i class="fa-solid fa-magnifying-glass"></i>
+				</button>
+				<input id="movieYearField" class="input-field dialog-input" placeholder="Movie Year" style="width: 145px; margin-left: 10px;">
+			</div>
+			<div style="display: flex; justify-content: center; margin-top: 10px;">
+				<input id="moviePosterPath" class="input-field dialog-input" placeholder="Movie Image">
+			</div>
+			<div style="display: flex; justify-content: center; margin-top: 10px;">
+				<input id="movieDescription" class="input-field dialog-input" placeholder="Movie Description" style="padding-left: 10px; padding-right: 10px;">
+			</div>
+			<div style="display: flex; justify-content: center; margin-top: 10px;">
+				<input id="movieVisualRating" class="input-field dialog-input" placeholder="Visual">
+				<input id="movieCastRating" class="input-field dialog-input" placeholder="Cast" style="margin-left: 10px;">
+				<input id="moviePlotRating" class="input-field dialog-input" placeholder="Plot" style="margin-left: 10px;">
+			</div>
+			<div style="display: flex; justify-content: center; margin-top: 10px;">
+				<button id="buttonSaveRating" class="button-login">Save Rating For This Movie</button>
+			</div>
+		</div>
+	</dialog>
 	<div class="limiter">
 		<div id="sidebar" class="sidebar">
 			<div id="headersContainer" class="headers-container">
@@ -19,7 +44,7 @@
 			<ul>
 				<li><a id="moviesButton"><i class="fa-solid fa-tv"></i>My Movies</a></li>
 				<li><a id="favoriteMoviesButton"><i class="fa-regular fa-heart"></i>My Favorite Movies</a></li>
-				<li><a href="#"><i class="fa-solid fa-plus"></i>Add New Movie</a></li>
+				<li><a id="addNewMovieButton"><i class="fa-solid fa-plus"></i>Add New Movie</a></li>
 				<li><a id="signOutButton"><i class="fa-regular fa-circle-left"></i>Sign Out</a></li>
 			</ul>
 	   </div>

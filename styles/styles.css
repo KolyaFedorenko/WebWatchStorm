@@ -274,3 +274,15 @@ progress::-webkit-progress-value {
       transform: translateX(0px);
     }
   }
+
+  dialog::backdrop{
+    background: rgba(0, 0, 0, 0.5);
+  }
+
+  dialog{
+    border: none;
+  }
+
+  .dialog-input{
+    background-color:#424242;
+  }
