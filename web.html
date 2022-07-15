@@ -2,13 +2,16 @@
 <html lang="ru">
 
 <head>
-	<title>Distribution</title>
+	<title>WatchStormWeb</title>
+	<link rel="icon" type="image/x-icon" href="images/watchstorm-icon.png">
 	<link rel="stylesheet" type="text/css" href="styles/styles.css">
 	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.1/css/all.min.css"/>
 </head>
 
 <body>
 	<dialog id="addMovieDialog" class="movie-item" style="position: fixed; z-index: 2; margin: auto;">
+		<dialog id="searchMovieDialog" class="movie-item" style="position: fixed; z-index: 2; margin: auto; width: 25%; height: 25%; padding-top: 20px; padding-bottom: 10px; padding-left: 20px; padding-right: 20px; overflow-y: scroll;">
+		</dialog>
 		<div class="login100-form validate-form" style="padding-left: 20px; padding-right: 20px;">
 			<div style="display: flex; justify-content: center;">
 				<input id="movieTitleField" class="input-field dialog-input" placeholder="Movie Title" style="width: 145px;">

@@ -286,3 +286,36 @@ progress::-webkit-progress-value {
   .dialog-input{
     background-color:#424242;
   }
+
+  ::-webkit-scrollbar {
+    width: 0px;
+    background: transparent;
+ }
+
+ dialog div.found_movie {
+  border-radius: 10px;
+  padding: 2px;
+ }
+
+ dialog div.found_movie:hover{
+  filter: brightness(1.2);
+  transition-duration: 500ms;
+  cursor: pointer;
+ }
+
+ div#foundMovieItem {
+  background-color: #424242;
+  border-radius: 30px;
+  padding-top: 5px;
+  padding-bottom: 1px;
+  padding-left: 5px;
+  padding-right: 20px;
+  transition-duration: 500ms;
+ }
+
+
+ div#foundMovieItem:hover {
+  background-color: #535353;
+  transition-duration: 500ms;
+  cursor: pointer;
+ }

@@ -319,6 +319,9 @@ function addOnMoviesButtonClickListener(username){
 
 function addOnAddNewMovieListener(){
 	let addNewMovieButton = document.getElementById("addNewMovieButton");
+	let buttonSearchMovie = document.getElementById("buttonSearchMovie");
+	let searchMovieDialog = document.getElementById("searchMovieDialog");
+
 	addNewMovieButton.onclick = function() {
 		let addMovieDialog = document.getElementById("addMovieDialog");
 		addMovieDialog.showModal();
@@ -328,8 +331,81 @@ function addOnAddNewMovieListener(){
 			  && rect.left <= event.clientX && event.clientX <= rect.left + rect.width);
 			if (!isInDialog) {
 				addMovieDialog.close();
+				if (searchMovieDialog != null){
+					searchMovieDialog.innerHTML = '';
+					searchMovieDialog.close();
+				}
 			}
 		});
+
+		buttonSearchMovie.onclick = function(){
+			searchMovieDialog.innerHTML = '';
+			let movieTitleField = document.getElementById("movieTitleField");
+			let url;
+			
+			if (movieTitleField.value != ""){
+				url = `https://api.themoviedb.org/3/search/multi?api_key=15d2ea6d0dc1d476efbca3eba2b9bbfb&query=${movieTitleField.value}`;
+				searchMovieDialog.showModal();
+				fetch(url)
+				.then(jsonResponse => jsonResponse.json())
+				.then(json => {
+					for (let i = 0; i < 20; i++) {
+						if (json.results[i].media_type == "movie"){
+							if(json.results[i].poster_path != null && json.results[i].title != null && json.results[i].release_date != null){
+								searchMovieDialog.innerHTML +=
+								`
+								<div id="foundMovieItem" class="${json.results[i].title}+${(json.results[i].release_date).substring(0, 4)}+${json.results[i].poster_path}+${(json.results[i].overview).replaceAll('\"', '\'')}" style="display: flex; justify-content: left; margin-bottom: 10px;"
+								 onclick="
+									let movieData = (this.className).split('\+');
+									movieTitleField.value = movieData[0];
+									movieYearField.value = movieData[1];
+									moviePosterPath.value = movieData[2];
+									movieDescription.value = movieData[3];
+									searchMovieDialog.close();
+								 ">
+									<div>
+										<img class="movie-image" src="https://image.tmdb.org/t/p/w500/${json.results[i].poster_path}">
+										<div style="float: right; margin-left: 10px; height: 50px; display: flex; align-items: center;">
+											<div>
+												<header id="titleText" style="font-size: 14px; color: white;">${json.results[i].title}</header>
+												<header style="font-size: 14px; color: white; margin-top: 2px; filter: opacity(0.5);">Movie, ${(json.results[i].release_date).substring(0, 4)}</header>
+											</div>
+										</div>
+									</div>
+								</div>
+								`
+							}
+						}
+						if (json.results[i].media_type == "tv"){
+							if(json.results[i].poster_path != null && json.results[i].name != null && json.results[i].first_air_date != null){
+								searchMovieDialog.innerHTML +=
+								`
+								<div id="foundMovieItem" class="${json.results[i].name}+${(json.results[i].first_air_date).substring(0, 4)}+${json.results[i].poster_path}+${(json.results[i].overview).replaceAll('\"', '\'')}" style="display: flex; justify-content: left; margin-bottom: 10px;"
+								 onclick="
+								 	let movieData = (this.className).split('\+');
+									movieTitleField.value = movieData[0];
+									movieYearField.value = movieData[1];
+									moviePosterPath.value = movieData[2];
+									movieDescription.value = movieData[3];
+									searchMovieDialog.close();
+								 ">
+									<div>
+										<img class="movie-image" src="https://image.tmdb.org/t/p/w500/${json.results[i].poster_path}">
+										<div style="float: right; margin-left: 10px; height: 50px; display: flex; align-items: center;">
+											<div>
+												<header style="font-size: 14px; color: white;">${json.results[i].name}</header>
+												<header style="font-size: 14px; color: white; margin-top: 2px; filter: opacity(0.5);">TV, ${(json.results[i].first_air_date).substring(0, 4)}</header>
+											</div>
+										</div>
+									</div>
+								</div>
+								`
+							}
+						}
+					}
+				});
+			}
+		}
 	}
 }
 
