@@ -321,6 +321,7 @@ function addOnAddNewMovieListener(){
 	let addNewMovieButton = document.getElementById("addNewMovieButton");
 	let buttonSearchMovie = document.getElementById("buttonSearchMovie");
 	let searchMovieDialog = document.getElementById("searchMovieDialog");
+	let buttonSaveRating = document.getElementById("buttonSaveRating");
 
 	addNewMovieButton.onclick = function() {
 		let addMovieDialog = document.getElementById("addMovieDialog");
@@ -405,6 +406,25 @@ function addOnAddNewMovieListener(){
 					}
 				});
 			}
+		}
+	}
+
+	buttonSaveRating.onclick = function(){
+		if (movieVisualRating.value != "" &&  movieCastRating.value != "" && moviePlotRating.value != ""){
+			set(ref(db, `WatchStorm/${getCookie("username")}/Movies/${movieTitleField.value}`), {
+				title: movieTitleField.value,
+				year: movieYearField.value,
+				imagePath: `https://image.tmdb.org/t/p/w500/${moviePosterPath.value}`,
+				description: movieDescription.value,
+				visualRating: parseInt(movieVisualRating.value),
+				castRating: parseInt(movieCastRating.value),
+				plotRating: parseInt(moviePlotRating.value),
+				usersAverageRating: Math.round((parseInt(movieVisualRating.value) + parseInt(movieCastRating.value) + parseInt(moviePlotRating.value))/3),
+				compositeRating: Math.round((parseInt(movieVisualRating.value) + parseInt(movieCastRating.value) + parseInt(moviePlotRating.value))/3)
+			});
+			addMovieDialog.close();
+			moviesList.innerHTML = '';
+			getUserMovies(getCookie("username"), false);
 		}
 	}
 }
