@@ -25,7 +25,7 @@ const dbRef = ref(db);
 
 const moviesList = document.getElementById("moviesList");
 
-function getUserMovies(username){
+function getUserMovies(username, favorite){
     get(child(dbRef, "WatchStorm/" + username + "/Movies/")).then((snapshot) => {
         let movies = snapshot.val();
         for (let movie in movies) {
@@ -101,7 +101,14 @@ function getUserMovies(username){
 				</div>
 			</div>
             `
-            moviesList.innerHTML += movieItem;
+			if (favorite) {
+				if (movies[movie].compositeRating == 100) {
+					moviesList.innerHTML += movieItem;
+				}
+			}
+			else {
+				moviesList.innerHTML += movieItem;
+			}
             console.log(movies[movie].title);
         }
     })
@@ -165,7 +172,10 @@ function showAuthorizationDialog(){
 				closeAuthorizationDialog();
 				showSidebar();
 				updateUserDataInSidebar(userLogin);
-				getUserMovies(userLogin);
+				getUserMovies(userLogin, false);
+				addOnFavoriteMoviesButtonClickListener(userLogin);
+				addOnMoviesButtonClickListener(userLogin);
+				addOnAddNewMovieListener();
 			} 
 			else {
 				alert("wrong");
@@ -231,7 +241,10 @@ function authorizeUser() {
 			if (savedDigitCode == receivedDigitCode) {
 				showSidebar();
 				updateUserDataInSidebar(savedUsername);
-				getUserMovies(savedUsername);
+				getUserMovies(savedUsername, false);
+				addOnFavoriteMoviesButtonClickListener(savedUsername);
+				addOnMoviesButtonClickListener(savedUsername);
+				addOnAddNewMovieListener();
 			} 
 			else {
 				showAuthorizationDialog();
@@ -249,11 +262,16 @@ function updateUserDataInSidebar(username) {
 	getDownloadURL(sRef(storage, `${username}/Images/ProfileImage`)).then((url) => {
 		headersContainer.innerHTML +=
 		`
-		<div id="userInfoHeader" class="user-info-header">
+		<div id="userInfoHeader" class="user-info-header" style="height: 200px; background: #3d3d3d; padding-top: 15px; padding-bottom: 15px;">
 			<div class="user-info-container">
-				<img id="userProfileImage" src="images/profile-image-placeholder.png" style="max-width: 12%; height: auto; border-radius: 20px ; float: left;">
-				<div style="height: 30px; display: flex; align-items: center; width: 20px;">
-					<header id="username" style="transition-duration: 1000ms; font-weight: 500; font-size: 14px ; width: 20px; float: left;">${username}</header>
+				<div style="display:flex; align-items:center; justify-content:center;">
+					<img id="userProfileImage" src="images/profile-image-placeholder.png" style="max-width: 50%; height: auto; transition-duration: 1s; border-radius: 50%;">
+				</div>
+				<div style="display:flex; align-items:center; justify-content:center; margin-top: 10px;">
+					<header id="username" style="transition-duration: 1000ms; font-weight: 500; font-size: 16px ;">${username}</header>
+				</div>
+				<div style="display:flex; align-items:center; justify-content:center; margin-top: 2px;">
+					<header id="userLogin" style="transition-duration: 1000ms; font-weight: 400; font-size: 12px; filter: opacity(0.5);">@${username.toLowerCase()}</header>
 				</div>
 			</div>
 		</div>
@@ -280,6 +298,134 @@ function addOnSignOutListener(){
 		deleteCookie("digitCode");
 		
 		showAuthorizationDialog();
+	}
+}
+
+function addOnFavoriteMoviesButtonClickListener(username){
+	let favoriteMoviesButton = document.getElementById("favoriteMoviesButton");
+	favoriteMoviesButton.onclick = function() {
+		moviesList.innerHTML = '';
+		getUserMovies(username, true);
+	}
+}
+
+function addOnMoviesButtonClickListener(username){
+	let moviesButton = document.getElementById("moviesButton");
+	moviesButton.onclick = function() {
+		moviesList.innerHTML = '';
+		getUserMovies(username, false);
+	}
+}
+
+function addOnAddNewMovieListener(){
+	let addNewMovieButton = document.getElementById("addNewMovieButton");
+	let buttonSearchMovie = document.getElementById("buttonSearchMovie");
+	let searchMovieDialog = document.getElementById("searchMovieDialog");
+	let buttonSaveRating = document.getElementById("buttonSaveRating");
+
+	addNewMovieButton.onclick = function() {
+		let addMovieDialog = document.getElementById("addMovieDialog");
+		addMovieDialog.showModal();
+		addMovieDialog.addEventListener('click', function (event) {
+			let rect = addMovieDialog.getBoundingClientRect();
+			let isInDialog = (rect.top <= event.clientY && event.clientY <= rect.top + rect.height
+			  && rect.left <= event.clientX && event.clientX <= rect.left + rect.width);
+			if (!isInDialog) {
+				addMovieDialog.close();
+				if (searchMovieDialog != null){
+					searchMovieDialog.innerHTML = '';
+					searchMovieDialog.close();
+				}
+			}
+		});
+
+		buttonSearchMovie.onclick = function(){
+			searchMovieDialog.innerHTML = '';
+			let movieTitleField = document.getElementById("movieTitleField");
+			let url;
+			
+			if (movieTitleField.value != ""){
+				url = `https://api.themoviedb.org/3/search/multi?api_key=15d2ea6d0dc1d476efbca3eba2b9bbfb&query=${movieTitleField.value}`;
+				searchMovieDialog.showModal();
+				fetch(url)
+				.then(jsonResponse => jsonResponse.json())
+				.then(json => {
+					for (let i = 0; i < 20; i++) {
+						if (json.results[i].media_type == "movie"){
+							if(json.results[i].poster_path != null && json.results[i].title != null && json.results[i].release_date != null){
+								searchMovieDialog.innerHTML +=
+								`
+								<div id="foundMovieItem" class="${json.results[i].title}+${(json.results[i].release_date).substring(0, 4)}+${json.results[i].poster_path}+${(json.results[i].overview).replaceAll('\"', '\'')}" style="display: flex; justify-content: left; margin-bottom: 10px;"
+								 onclick="
+									let movieData = (this.className).split('\+');
+									movieTitleField.value = movieData[0];
+									movieYearField.value = movieData[1];
+									moviePosterPath.value = movieData[2];
+									movieDescription.value = movieData[3];
+									searchMovieDialog.close();
+								 ">
+									<div>
+										<img class="movie-image" src="https://image.tmdb.org/t/p/w500/${json.results[i].poster_path}">
+										<div style="float: right; margin-left: 10px; height: 50px; display: flex; align-items: center;">
+											<div>
+												<header id="titleText" style="font-size: 14px; color: white;">${json.results[i].title}</header>
+												<header style="font-size: 14px; color: white; margin-top: 2px; filter: opacity(0.5);">Movie, ${(json.results[i].release_date).substring(0, 4)}</header>
+											</div>
+										</div>
+									</div>
+								</div>
+								`
+							}
+						}
+						if (json.results[i].media_type == "tv"){
+							if(json.results[i].poster_path != null && json.results[i].name != null && json.results[i].first_air_date != null){
+								searchMovieDialog.innerHTML +=
+								`
+								<div id="foundMovieItem" class="${json.results[i].name}+${(json.results[i].first_air_date).substring(0, 4)}+${json.results[i].poster_path}+${(json.results[i].overview).replaceAll('\"', '\'')}" style="display: flex; justify-content: left; margin-bottom: 10px;"
+								 onclick="
+								 	let movieData = (this.className).split('\+');
+									movieTitleField.value = movieData[0];
+									movieYearField.value = movieData[1];
+									moviePosterPath.value = movieData[2];
+									movieDescription.value = movieData[3];
+									searchMovieDialog.close();
+								 ">
+									<div>
+										<img class="movie-image" src="https://image.tmdb.org/t/p/w500/${json.results[i].poster_path}">
+										<div style="float: right; margin-left: 10px; height: 50px; display: flex; align-items: center;">
+											<div>
+												<header style="font-size: 14px; color: white;">${json.results[i].name}</header>
+												<header style="font-size: 14px; color: white; margin-top: 2px; filter: opacity(0.5);">TV, ${(json.results[i].first_air_date).substring(0, 4)}</header>
+											</div>
+										</div>
+									</div>
+								</div>
+								`
+							}
+						}
+					}
+				});
+			}
+		}
+	}
+
+	buttonSaveRating.onclick = function(){
+		if (movieVisualRating.value != "" &&  movieCastRating.value != "" && moviePlotRating.value != ""){
+			set(ref(db, `WatchStorm/${getCookie("username")}/Movies/${movieTitleField.value}`), {
+				title: movieTitleField.value,
+				year: movieYearField.value,
+				imagePath: `https://image.tmdb.org/t/p/w500/${moviePosterPath.value}`,
+				description: movieDescription.value,
+				visualRating: parseInt(movieVisualRating.value),
+				castRating: parseInt(movieCastRating.value),
+				plotRating: parseInt(moviePlotRating.value),
+				usersAverageRating: Math.round((parseInt(movieVisualRating.value) + parseInt(movieCastRating.value) + parseInt(moviePlotRating.value))/3),
+				compositeRating: Math.round((parseInt(movieVisualRating.value) + parseInt(movieCastRating.value) + parseInt(moviePlotRating.value))/3)
+			});
+			addMovieDialog.close();
+			moviesList.innerHTML = '';
+			getUserMovies(getCookie("username"), false);
+		}
 	}
 }
 
