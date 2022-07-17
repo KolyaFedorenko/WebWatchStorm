@@ -355,9 +355,9 @@ function addOnAddNewMovieListener(){
 							if(json.results[i].poster_path != null && json.results[i].title != null && json.results[i].release_date != null){
 								searchMovieDialog.innerHTML +=
 								`
-								<div id="foundMovieItem" class="${json.results[i].title}+${(json.results[i].release_date).substring(0, 4)}+${json.results[i].poster_path}+${(json.results[i].overview).replaceAll('\"', '\'')}" style="display: flex; justify-content: left; margin-bottom: 10px;"
+								<div id="foundMovieItem" style="display: flex; justify-content: left; margin-bottom: 10px;" data-movie="${json.results[i].title}+${(json.results[i].release_date).substring(0, 4)}+${json.results[i].poster_path}+${(json.results[i].overview).replaceAll('\"', '\'')}"
 								 onclick="
-									let movieData = (this.className).split('\+');
+									let movieData = (this.getAttribute('data-movie')).split('\+');
 									movieTitleField.value = movieData[0];
 									movieYearField.value = movieData[1];
 									moviePosterPath.value = movieData[2];
@@ -381,9 +381,9 @@ function addOnAddNewMovieListener(){
 							if(json.results[i].poster_path != null && json.results[i].name != null && json.results[i].first_air_date != null){
 								searchMovieDialog.innerHTML +=
 								`
-								<div id="foundMovieItem" class="${json.results[i].name}+${(json.results[i].first_air_date).substring(0, 4)}+${json.results[i].poster_path}+${(json.results[i].overview).replaceAll('\"', '\'')}" style="display: flex; justify-content: left; margin-bottom: 10px;"
+								<div id="foundMovieItem" style="display: flex; justify-content: left; margin-bottom: 10px;" data-movie="${json.results[i].name}+${(json.results[i].first_air_date).substring(0, 4)}+${json.results[i].poster_path}+${(json.results[i].overview).replaceAll('\"', '\'')}"
 								 onclick="
-								 	let movieData = (this.className).split('\+');
+								 	let movieData = (this.getAttribute('data-movie')).split('\+');
 									movieTitleField.value = movieData[0];
 									movieYearField.value = movieData[1];
 									moviePosterPath.value = movieData[2];
