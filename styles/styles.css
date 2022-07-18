@@ -313,9 +313,27 @@ progress::-webkit-progress-value {
   transition-duration: 500ms;
  }
 
-
  div#foundMovieItem:hover {
   background-color: #535353;
   transition-duration: 500ms;
   cursor: pointer;
+ }
+
+ .button-delete-movie{
+  width: 100%;
+  height: 40px;
+  background-color: #535353;
+  border: none;
+  text-align: center;
+  text-transform: uppercase;
+  cursor: pointer;
+  transition-duration: 500ms;
+  color: white;
+ }
+
+ .button-delete-movie:hover{
+  background-color: #FFF553;
+  transition-duration: 500ms;
+  cursor: pointer;
+  color: black;
  }

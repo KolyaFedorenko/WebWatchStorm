@@ -31,7 +31,20 @@ function getUserMovies(username, favorite){
         for (let movie in movies) {
             let movieItem = 
             `
-            <div class="movie-item" style="cursor:pointer;">
+            <div class="movie-item" style="cursor:pointer;" 
+			onclick="
+			 selectedMovieImage.src='${movies[movie].imagePath}';
+			 movieDialog.setAttribute('data-delete', '${movies[movie].title}');
+			 movieDialog.showModal();
+			 movieDialog.addEventListener('click', function (event) {
+				let rect = movieDialog.getBoundingClientRect();
+				let isInDialog = (rect.top <= event.clientY && event.clientY <= rect.top + rect.height
+				  && rect.left <= event.clientX && event.clientX <= rect.left + rect.width);
+				if (!isInDialog) {
+					movieDialog.close();
+				}
+			});
+			">
 				<div class="login100-form validate-form">
 					<div class="movie-header">
 						<img class="movie-image" src="${movies[movie].imagePath}">
@@ -176,6 +189,7 @@ function showAuthorizationDialog(){
 				addOnFavoriteMoviesButtonClickListener(userLogin);
 				addOnMoviesButtonClickListener(userLogin);
 				addOnAddNewMovieListener();
+				addOnButtonDeleteMovieClickListener();
 			} 
 			else {
 				alert("wrong");
@@ -245,6 +259,7 @@ function authorizeUser() {
 				addOnFavoriteMoviesButtonClickListener(savedUsername);
 				addOnMoviesButtonClickListener(savedUsername);
 				addOnAddNewMovieListener();
+				addOnButtonDeleteMovieClickListener();
 			} 
 			else {
 				showAuthorizationDialog();
@@ -426,6 +441,15 @@ function addOnAddNewMovieListener(){
 			moviesList.innerHTML = '';
 			getUserMovies(getCookie("username"), false);
 		}
+	}
+}
+
+function addOnButtonDeleteMovieClickListener(){
+	buttonDeleteMovie.onclick = function() {
+		set(ref(db, `WatchStorm/${getCookie("username")}/Movies/${movieDialog.getAttribute('data-delete')}`), null);
+		movieDialog.close();
+		moviesList.innerHTML = '';
+		getUserMovies(getCookie("username"), false);
 	}
 }
 
