@@ -421,6 +421,11 @@ function addOnAddNewMovieListener(){
 					}
 				});
 			}
+			else
+			{
+				movieTitleField.classList.add("wrong-input");
+				setTimeout(()=> movieTitleField.classList.remove("wrong-input"), 1000);
+			}
 		}
 	}
 
@@ -440,6 +445,17 @@ function addOnAddNewMovieListener(){
 			addMovieDialog.close();
 			moviesList.innerHTML = '';
 			getUserMovies(getCookie("username"), false);
+		}
+		else
+		{
+			movieVisualRating.classList.add("wrong-input");
+			movieCastRating.classList.add("wrong-input");
+			moviePlotRating.classList.add("wrong-input");
+			setTimeout(()=> {
+				movieVisualRating.classList.remove("wrong-input");
+				movieCastRating.classList.remove("wrong-input");
+				moviePlotRating.classList.remove("wrong-input");
+			}, 1000);
 		}
 	}
 }
