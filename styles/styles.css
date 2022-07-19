@@ -237,7 +237,17 @@ progress::-webkit-progress-value {
     text-align: center;
     text-transform: uppercase;
     cursor: pointer;
-    transition-duration: 500ms;
+    transition-duration: 400ms;
+  }
+
+  .button-login:active{
+    transform: scale(0.8);
+    transition-duration: 400ms;
+  }
+
+  .search-button:active{
+    transform: scale(0.7);
+    transition-duration: 400ms;
   }
 
   .user-info-header{
