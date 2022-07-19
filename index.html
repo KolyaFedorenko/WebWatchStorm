@@ -36,6 +36,15 @@
 			</div>
 		</div>
 	</dialog>
+	<dialog id="movieDialog" class="movie-item" data-delete="" style="position: fixed; z-index: 2; margin: auto;">
+		<img id="selectedMovieImage" style="width: 390px; height: 390px; object-fit: cover; display: block;">
+		<div style="display: flex; justify-content: center;">
+			<button id="buttonDeleteMovie" class="button-delete-movie">
+				<i class="fa-regular fa-circle-xmark" style="padding-right: 5px;"></i>
+				Delete This Movie
+			</button>
+		</div>
+	</dialog>
 	<div class="limiter">
 		<div id="sidebar" class="sidebar">
 			<div id="headersContainer" class="headers-container">

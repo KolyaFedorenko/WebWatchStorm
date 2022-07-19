@@ -31,7 +31,20 @@ function getUserMovies(username, favorite){
         for (let movie in movies) {
             let movieItem = 
             `
-            <div class="movie-item" style="cursor:pointer;">
+            <div class="movie-item" style="cursor:pointer;" 
+			onclick="
+			 selectedMovieImage.src='${movies[movie].imagePath}';
+			 movieDialog.setAttribute('data-delete', '${movies[movie].title}');
+			 movieDialog.showModal();
+			 movieDialog.addEventListener('click', function (event) {
+				let rect = movieDialog.getBoundingClientRect();
+				let isInDialog = (rect.top <= event.clientY && event.clientY <= rect.top + rect.height
+				  && rect.left <= event.clientX && event.clientX <= rect.left + rect.width);
+				if (!isInDialog) {
+					movieDialog.close();
+				}
+			});
+			">
 				<div class="login100-form validate-form">
 					<div class="movie-header">
 						<img class="movie-image" src="${movies[movie].imagePath}">
@@ -176,6 +189,7 @@ function showAuthorizationDialog(){
 				addOnFavoriteMoviesButtonClickListener(userLogin);
 				addOnMoviesButtonClickListener(userLogin);
 				addOnAddNewMovieListener();
+				addOnButtonDeleteMovieClickListener();
 			} 
 			else {
 				alert("wrong");
@@ -245,6 +259,7 @@ function authorizeUser() {
 				addOnFavoriteMoviesButtonClickListener(savedUsername);
 				addOnMoviesButtonClickListener(savedUsername);
 				addOnAddNewMovieListener();
+				addOnButtonDeleteMovieClickListener();
 			} 
 			else {
 				showAuthorizationDialog();
@@ -355,9 +370,9 @@ function addOnAddNewMovieListener(){
 							if(json.results[i].poster_path != null && json.results[i].title != null && json.results[i].release_date != null){
 								searchMovieDialog.innerHTML +=
 								`
-								<div id="foundMovieItem" class="${json.results[i].title}+${(json.results[i].release_date).substring(0, 4)}+${json.results[i].poster_path}+${(json.results[i].overview).replaceAll('\"', '\'')}" style="display: flex; justify-content: left; margin-bottom: 10px;"
+								<div id="foundMovieItem" style="display: flex; justify-content: left; margin-bottom: 10px;" data-movie="${json.results[i].title}+${(json.results[i].release_date).substring(0, 4)}+${json.results[i].poster_path}+${(json.results[i].overview).replaceAll('\"', '\'')}"
 								 onclick="
-									let movieData = (this.className).split('\+');
+									let movieData = (this.getAttribute('data-movie')).split('\+');
 									movieTitleField.value = movieData[0];
 									movieYearField.value = movieData[1];
 									moviePosterPath.value = movieData[2];
@@ -381,9 +396,9 @@ function addOnAddNewMovieListener(){
 							if(json.results[i].poster_path != null && json.results[i].name != null && json.results[i].first_air_date != null){
 								searchMovieDialog.innerHTML +=
 								`
-								<div id="foundMovieItem" class="${json.results[i].name}+${(json.results[i].first_air_date).substring(0, 4)}+${json.results[i].poster_path}+${(json.results[i].overview).replaceAll('\"', '\'')}" style="display: flex; justify-content: left; margin-bottom: 10px;"
+								<div id="foundMovieItem" style="display: flex; justify-content: left; margin-bottom: 10px;" data-movie="${json.results[i].name}+${(json.results[i].first_air_date).substring(0, 4)}+${json.results[i].poster_path}+${(json.results[i].overview).replaceAll('\"', '\'')}"
 								 onclick="
-								 	let movieData = (this.className).split('\+');
+								 	let movieData = (this.getAttribute('data-movie')).split('\+');
 									movieTitleField.value = movieData[0];
 									movieYearField.value = movieData[1];
 									moviePosterPath.value = movieData[2];
@@ -426,6 +441,15 @@ function addOnAddNewMovieListener(){
 			moviesList.innerHTML = '';
 			getUserMovies(getCookie("username"), false);
 		}
+	}
+}
+
+function addOnButtonDeleteMovieClickListener(){
+	buttonDeleteMovie.onclick = function() {
+		set(ref(db, `WatchStorm/${getCookie("username")}/Movies/${movieDialog.getAttribute('data-delete')}`), null);
+		movieDialog.close();
+		moviesList.innerHTML = '';
+		getUserMovies(getCookie("username"), false);
 	}
 }
 
