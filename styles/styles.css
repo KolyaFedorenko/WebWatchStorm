@@ -237,7 +237,17 @@ progress::-webkit-progress-value {
     text-align: center;
     text-transform: uppercase;
     cursor: pointer;
-    transition-duration: 500ms;
+    transition-duration: 400ms;
+  }
+
+  .button-login:active{
+    transform: scale(0.8);
+    transition-duration: 400ms;
+  }
+
+  .search-button:active{
+    transform: scale(0.7);
+    transition-duration: 400ms;
   }
 
   .user-info-header{
@@ -337,3 +347,22 @@ progress::-webkit-progress-value {
   cursor: pointer;
   color: black;
  }
+
+ .wrong-input{
+  animation-duration: 1s;
+  animation-name: show-wrong-input;
+ }
+
+ @keyframes show-wrong-input {
+  from {
+    border: 2px solid white;
+  }
+
+  50%{
+    border: 2px solid #FFF553;
+  }
+
+  to {
+    border: 2px solid white;
+  }
+}
