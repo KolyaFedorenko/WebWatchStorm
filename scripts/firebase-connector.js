@@ -475,7 +475,7 @@ function addOnNewsButtonClickListener(){
 			for (let neww in news) {
 				let newwItem = 
 				`
-				<div class="movie-item movie" style="cursor:pointer;">
+				<div class="movie-item movie" style="user-select: none;">
 					<div class="login100-form validate-form">
 						<div class="movie-header">
 							<div class="movie-main-info">

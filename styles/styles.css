@@ -177,6 +177,8 @@ progress::-webkit-progress-value {
     transition: .4s;
     text-decoration: none;
     filter: grayscale(100%);
+    cursor: pointer;
+    user-select: none;
   }
 
   ul li:hover a{
