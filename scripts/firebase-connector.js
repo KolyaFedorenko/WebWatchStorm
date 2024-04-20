@@ -31,9 +31,9 @@ function getUserMovies(username, favorite){
         for (let movie in movies) {
             let movieItem = 
             `
-            <div class="movie-item" style="cursor:pointer;" 
+            <div class="movie-item movie" style="cursor:pointer;" 
 			onclick="
-			 selectedMovieImage.src='${movies[movie].imagePath}';
+			 selectedMovieImage.src='https://i.ibb.co/Cmtbf8j/movie-placeholder2.jpg';
 			 movieDialog.setAttribute('data-delete', '${movies[movie].title}');
 			 movieDialog.showModal();
 			 movieDialog.addEventListener('click', function (event) {
@@ -47,10 +47,12 @@ function getUserMovies(username, favorite){
 			">
 				<div class="login100-form validate-form">
 					<div class="movie-header">
-						<img class="movie-image" src="${movies[movie].imagePath}">
-						<div class="movie-title-and-year">
-							<span class="movie-title">${movies[movie].title}</span>
-							<span class="movie-year">${movies[movie].year}</span>
+						<div class="movie-main-info">
+							<img class="movie-image" src="https://i.ibb.co/Cmtbf8j/movie-placeholder2.jpg">
+							<div class="movie-title-and-year">
+								<span class="movie-title">${movies[movie].title}</span>
+								<span class="movie-year">${movies[movie].year}</span>
+							</div>
 						</div>
 						<div class="description movie-container">
 							<span class="default-text">${movies[movie].description}</span>
@@ -117,6 +119,7 @@ function getUserMovies(username, favorite){
 			if (favorite) {
 				if (movies[movie].compositeRating == 100) {
 					moviesList.innerHTML += movieItem;
+					document.querySelectorAll('.movie').forEach(el=>el.classList.add('favorite-movie'));
 				}
 			}
 			else {
@@ -135,10 +138,10 @@ function showAuthorizationDialog(){
     <div class="movie-item">
         <div id="authorizationForm" class="login100-form validate-form">
             <div style="display: flex; justify-content: center;">
-                <img src="images/watchstorm-icon.png" style="width: 30%; height: 30%">
+                <img src="images/watchstorm-icon2.png" style="width: 30%; height: 30%">
             </div>
             <div style="display: flex; justify-content: center;">
-                <header style="color: white; font-weight: 500; font-size: 20px ;margin-top: 10px;">WatchStorm Web</header>
+                <header style="color: white; font-weight: 500; font-size: 20px ;margin-top: 10px;">WatchStormWeb</header>
             </div>
             <div style="display: flex; justify-content: center;">
                 <div class="description movie-container">
@@ -190,6 +193,8 @@ function showAuthorizationDialog(){
 				addOnMoviesButtonClickListener(userLogin);
 				addOnAddNewMovieListener();
 				addOnButtonDeleteMovieClickListener();
+				addOnNewsButtonClickListener();
+				addOnAwardsButtonClickListener();
 			} 
 			else {
 				alert("wrong");
@@ -260,6 +265,8 @@ function authorizeUser() {
 				addOnMoviesButtonClickListener(savedUsername);
 				addOnAddNewMovieListener();
 				addOnButtonDeleteMovieClickListener();
+				addOnNewsButtonClickListener();
+				addOnAwardsButtonClickListener();
 			} 
 			else {
 				showAuthorizationDialog();
@@ -274,19 +281,17 @@ function authorizeUser() {
 function updateUserDataInSidebar(username) {
 	let headersContainer = document.getElementById("headersContainer");
 
-	getDownloadURL(sRef(storage, `${username}/Images/ProfileImage`)).then((url) => {
+	getDownloadURL(sRef(storage, `${username}/Images/ProfileImage.jpg`)).then((url) => {
 		headersContainer.innerHTML +=
 		`
-		<div id="userInfoHeader" class="user-info-header" style="height: 200px; background: #3d3d3d; padding-top: 15px; padding-bottom: 15px;">
+		<div id="userInfoHeader" class="user-info-header" style="height: 100px;     background-color: rgb(30, 30, 30); padding-top: 15px; padding-bottom: 15px;">
 			<div class="user-info-container">
-				<div style="display:flex; align-items:center; justify-content:center;">
-					<img id="userProfileImage" src="images/profile-image-placeholder.png" style="max-width: 50%; height: auto; transition-duration: 1s; border-radius: 50%;">
+				<div style="display:flex-inline; align-items:center; justify-content:center;">
+					<img id="userProfileImage" src="images/profile-image-placeholder.png" style="max-width: 75px; height: 75px; transition-duration: 1s; border-radius: 50%;">
 				</div>
-				<div style="display:flex; align-items:center; justify-content:center; margin-top: 10px;">
-					<header id="username" style="transition-duration: 1000ms; font-weight: 500; font-size: 16px ;">${username}</header>
-				</div>
-				<div style="display:flex; align-items:center; justify-content:center; margin-top: 2px;">
-					<header id="userLogin" style="transition-duration: 1000ms; font-weight: 400; font-size: 12px; filter: opacity(0.5);">@${username.toLowerCase()}</header>
+				<div style="display:block; align-items:center; justify-content:center; margin-left: 15px;">
+					<header id="username" style="transition-duration: 1000ms; font-weight: 500; font-size: 18px;">${username}</header>
+					<header id="userLogin" style="transition-duration: 1000ms; font-weight: 400; font-size: 14px; filter: opacity(0.5);">@${username.toLowerCase()}</header>
 				</div>
 			</div>
 		</div>
@@ -306,7 +311,7 @@ function addOnSignOutListener(){
 		let userInfoHeader = document.getElementById("userInfoHeader");
 
 		moviesList.innerHTML = '';
-		sidebar.style.transform = "translate(-250px, 0px)";
+		sidebar.style.transform = "translate(-300px, 0px)";
 		userInfoHeader.remove();
 
 		deleteCookie("username");
@@ -380,7 +385,7 @@ function addOnAddNewMovieListener(){
 									searchMovieDialog.close();
 								 ">
 									<div>
-										<img class="movie-image" src="https://image.tmdb.org/t/p/w500/${json.results[i].poster_path}">
+										<img class="movie-image" src="https://i.ibb.co/Cmtbf8j/movie-placeholder2.jpg">
 										<div style="float: right; margin-left: 10px; height: 50px; display: flex; align-items: center;">
 											<div>
 												<header id="titleText" style="font-size: 14px; color: white;">${json.results[i].title}</header>
@@ -406,7 +411,7 @@ function addOnAddNewMovieListener(){
 									searchMovieDialog.close();
 								 ">
 									<div>
-										<img class="movie-image" src="https://image.tmdb.org/t/p/w500/${json.results[i].poster_path}">
+										<img class="movie-image" src="https://i.ibb.co/Cmtbf8j/movie-placeholder2.jpg">
 										<div style="float: right; margin-left: 10px; height: 50px; display: flex; align-items: center;">
 											<div>
 												<header style="font-size: 14px; color: white;">${json.results[i].name}</header>
@@ -457,6 +462,250 @@ function addOnAddNewMovieListener(){
 				moviePlotRating.classList.remove("wrong-input");
 			}, 1000);
 		}
+	}
+}
+
+function addOnNewsButtonClickListener(){
+	let newsButton = document.getElementById("newsButton");
+	newsButton.onclick = function() {
+		moviesList.innerHTML = '';
+
+		get(child(dbRef, "WatchStormWeb/News/")).then((snapshot) => {
+			let news = snapshot.val();
+			for (let neww in news) {
+				let newwItem = 
+				`
+				<div class="movie-item movie" style="cursor:pointer;">
+					<div class="login100-form validate-form">
+						<div class="movie-header">
+							<div class="movie-main-info">
+								<img class="movie-image" src="https://i.ibb.co/7tpcQH5/newlogo6.jpg">
+								<div class="movie-title-and-year">
+									<div style="display: inline-flex">
+										<span class="movie-title">WatchStorm</span>
+										<i class="fa-solid fa-circle-check fa-sm fa verified"></i>
+									</div>
+									<span class="movie-year">${news[neww].date}</span>
+								</div>
+							</div>
+							<div class="description movie-container">
+								<span class="default-text">${news[neww].description}</span>
+							</div>
+						</div>
+					</div>
+				</div>
+				`
+				moviesList.innerHTML += newwItem;
+			}
+		})
+	}
+}
+
+function addOnAwardsButtonClickListener(){
+	let awardsButton = document.getElementById("awardsButton");
+	awardsButton.onclick = function() {
+		moviesList.innerHTML = '';
+		moviesList.innerHTML += 				
+		`
+		<div class="awardsContainer movie" style="cursor:pointer;">
+			<div class="awardLine">
+				<div class="awardBlock">
+					<div class="login100-form validate-form">
+						<div class="movie-header award-center">
+							<div class="movie-main-info" style="width: 330px; height: 50px; display: flex; align-items: center; justify-content: center; padding: 0;">
+								<div class="movie-title-and-year" style="display: inline-flex;">
+									<i class="fa-solid fa-award fa fa-fw award-icon"></i>
+									<span class="movie-title">Best Directors</span>
+									<i class="fa-solid fa-award fa fa-fw award-icon"></i>
+								</div>
+							</div>
+							<div class="movie-main-info" style="width: 330px; margin-top: 10px; height: 45px;">
+								<img class="movie-image mini" src="https://i.ibb.co/YLMWZqz/director-placeholder.jpg">
+								<div class="movie-title-and-year" style="display: inline-flex;">
+									<span class="movie-title" style="font-size: 14px;">David Fincher</span>
+									<span class="movie-year" style="margin-left: 5px; font-size: 14px; margin-top: 0px;">1984 - Present Time</span>
+								</div>
+							</div>
+							<div class="movie-main-info" style="width: 330px; margin-top: 10px; height: 45px;">
+								<img class="movie-image mini" src="https://i.ibb.co/YLMWZqz/director-placeholder.jpg">
+								<div class="movie-title-and-year" style="display: inline-flex;">
+									<span class="movie-title" style="font-size: 14px;">Christopher Nolan</span>
+									<span class="movie-year" style="margin-left: 5px; font-size: 14px; margin-top: 0px;">1998 - Present Time</span>
+								</div>
+							</div>
+							<div class="movie-main-info" style="width: 330px; margin-top: 10px; height: 45px;">
+								<img class="movie-image mini" src="https://i.ibb.co/YLMWZqz/director-placeholder.jpg">
+								<div class="movie-title-and-year" style="display: inline-flex;">
+									<span class="movie-title" style="font-size: 14px;">Quentin Tarantino</span>
+									<span class="movie-year" style="margin-left: 5px; font-size: 14px; margin-top: 0px;">1983 - Present Time</span>
+								</div>
+							</div>
+							<div class="movie-main-info" style="width: 330px; margin-top: 10px; height: 45px;">
+								<img class="movie-image mini" src="https://i.ibb.co/YLMWZqz/director-placeholder.jpg">
+								<div class="movie-title-and-year" style="display: inline-flex;">
+									<span class="movie-title" style="font-size: 14px;">Martin Scorsese</span>
+									<span class="movie-year" style="margin-left: 5px; font-size: 14px; margin-top: 0px;">1959 - Present Time</span>
+								</div>
+							</div>
+							<div class="movie-main-info" style="width: 330px; margin-top: 10px; height: 45px;">
+								<img class="movie-image mini" src="https://i.ibb.co/YLMWZqz/director-placeholder.jpg">
+								<div class="movie-title-and-year" style="display: inline-flex;">
+									<span class="movie-title" style="font-size: 14px;">Vince Gilligan</span>
+									<span class="movie-year" style="margin-left: 5px; font-size: 14px; margin-top: 0px;">1990 - Present Time</span>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+				<div class="awardBlock" style="margin-left: 20px">
+					<div class="login100-form validate-form">
+						<div class="movie-header award-center">
+							<div class="movie-main-info" style="width: 330px; height: 50px; display: flex; align-items: center; justify-content: center; padding: 0;">
+								<div class="movie-title-and-year">
+									<i class="fa-solid fa-award fa fa-fw award-icon"></i>
+									<span class="movie-title">Best Movies</span>
+									<i class="fa-solid fa-award fa fa-fw award-icon"></i>
+								</div>
+							</div>
+							<div class="movie-main-info" style="width: 330px; margin-top: 10px; height: 45px;">
+								<img class="movie-image mini" src="https://i.ibb.co/Cmtbf8j/movie-placeholder2.jpg">
+								<div class="movie-title-and-year" style="display: inline-flex;">
+									<span class="movie-title" style="font-size: 14px;">Fight Club</span>
+									<span class="movie-year" style="margin-left: 5px; font-size: 14px; margin-top: 0px;">1999, Thriller</span>
+								</div>
+							</div>
+							<div class="movie-main-info" style="width: 330px; margin-top: 10px; height: 45px;">
+								<img class="movie-image mini" src="https://i.ibb.co/Cmtbf8j/movie-placeholder2.jpg">
+								<div class="movie-title-and-year" style="display: inline-flex;">
+									<span class="movie-title" style="font-size: 14px;">American History X</span>
+									<span class="movie-year" style="margin-left: 5px; font-size: 14px; margin-top: 0px;">1998, Drama</span>
+								</div>
+							</div>
+							<div class="movie-main-info" style="width: 330px; margin-top: 10px; height: 45px;">
+								<img class="movie-image mini" src="https://i.ibb.co/Cmtbf8j/movie-placeholder2.jpg">
+								<div class="movie-title-and-year" style="display: inline-flex;">
+									<span class="movie-title" style="font-size: 14px;">Se7en</span>
+									<span class="movie-year" style="margin-left: 5px; font-size: 14px; margin-top: 0px;">1995, Thriller</span>
+								</div>
+							</div>
+							<div class="movie-main-info" style="width: 330px; margin-top: 10px; height: 45px;">
+								<img class="movie-image mini" src="https://i.ibb.co/Cmtbf8j/movie-placeholder2.jpg">
+								<div class="movie-title-and-year" style="display: inline-flex;">
+									<span class="movie-title" style="font-size: 14px;">Drive</span>
+									<span class="movie-year" style="margin-left: 5px; font-size: 14px; margin-top: 0px;">2011, Thriller</span>
+								</div>
+							</div>
+							<div class="movie-main-info" style="width: 330px; margin-top: 10px; height: 45px;">
+								<img class="movie-image mini" src="https://i.ibb.co/Cmtbf8j/movie-placeholder2.jpg">
+								<div class="movie-title-and-year" style="display: inline-flex;">
+									<span class="movie-title" style="font-size: 14px;">The Gentlemen</span>
+									<span class="movie-year" style="margin-left: 5px; font-size: 14px; margin-top: 0px;">2019, Action Movie</span>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+			<div class="awardLine" style="margin-top: 20px">
+				<div class="awardBlock">
+					<div class="login100-form validate-form">
+						<div class="movie-header award-center">
+							<div class="movie-main-info" style="width: 330px; height: 50px; display: flex; align-items: center; justify-content: center; padding: 0;">
+								<div class="movie-title-and-year" style="display: inline-flex;">
+									<i class="fa-solid fa-award fa fa-fw award-icon"></i>
+									<span class="movie-title">Best TV Series</span>
+									<i class="fa-solid fa-award fa fa-fw award-icon"></i>
+								</div>
+							</div>
+							<div class="movie-main-info" style="width: 330px; margin-top: 10px; height: 45px;">
+								<img class="movie-image mini" src="https://i.ibb.co/7yDVRst/tv-series-placeholder2.jpg">
+								<div class="movie-title-and-year" style="display: inline-flex;">
+									<span class="movie-title" style="font-size: 14px;">Breaking Bad</span>
+									<span class="movie-year" style="margin-left: 5px; font-size: 14px; margin-top: 0px;">2008 - 2013</span>
+								</div>
+							</div>
+							<div class="movie-main-info" style="width: 330px; margin-top: 10px; height: 45px;">
+								<img class="movie-image mini" src="https://i.ibb.co/7yDVRst/tv-series-placeholder2.jpg">
+								<div class="movie-title-and-year" style="display: inline-flex;">
+									<span class="movie-title" style="font-size: 14px;">Snowfall</span>
+									<span class="movie-year" style="margin-left: 5px; font-size: 14px; margin-top: 0px;">2017 - 2023</span>
+								</div>
+							</div>
+							<div class="movie-main-info" style="width: 330px; margin-top: 10px; height: 45px;">
+								<img class="movie-image mini" src="https://i.ibb.co/7yDVRst/tv-series-placeholder2.jpg">
+								<div class="movie-title-and-year" style="display: inline-flex;">
+									<span class="movie-title" style="font-size: 14px;">Mindhunter</span>
+									<span class="movie-year" style="margin-left: 5px; font-size: 14px; margin-top: 0px;">2017 - 2019</span>
+								</div>
+							</div>
+							<div class="movie-main-info" style="width: 330px; margin-top: 10px; height: 45px;">
+								<img class="movie-image mini" src="https://i.ibb.co/7yDVRst/tv-series-placeholder2.jpg">
+								<div class="movie-title-and-year" style="display: inline-flex;">
+									<span class="movie-title" style="font-size: 14px;">True Detective</span>
+									<span class="movie-year" style="margin-left: 5px; font-size: 14px; margin-top: 0px;">2014 - Present Time</span>
+								</div>
+							</div>
+							<div class="movie-main-info" style="width: 330px; margin-top: 10px; height: 45px;">
+								<img class="movie-image mini" src="https://i.ibb.co/7yDVRst/tv-series-placeholder2.jpg">
+								<div class="movie-title-and-year" style="display: inline-flex;">
+									<span class="movie-title" style="font-size: 14px;">Better Call Saul</span>
+									<span class="movie-year" style="margin-left: 5px; font-size: 14px; margin-top: 0px;">2015 - 2022</span>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+				<div class="awardBlock" style="margin-left: 20px">
+					<div class="login100-form validate-form">
+						<div class="movie-header award-center">
+							<div class="movie-main-info" style="width: 330px; height: 50px; display: flex; align-items: center; justify-content: center; padding: 0;">
+								<div class="movie-title-and-year" style="display: inline-flex;">
+									<i class="fa-solid fa-award fa fa-fw award-icon"></i>
+									<span class="movie-title">Best Animated Series</span>
+									<i class="fa-solid fa-award fa fa-fw award-icon"></i>
+								</div>
+							</div>
+							<div class="movie-main-info" style="width: 330px; margin-top: 10px; height: 45px;">
+								<img class="movie-image mini" src="https://i.ibb.co/Tmj31Dg/animated-series-placeholder6.jpg">
+								<div class="movie-title-and-year" style="display: inline-flex;">
+									<span class="movie-title" style="font-size: 14px;">The Simpsons</span>
+									<span class="movie-year" style="margin-left: 5px; font-size: 14px; margin-top: 0px;">1989 - Present Time</span>
+								</div>
+							</div>
+							<div class="movie-main-info" style="width: 330px; margin-top: 10px; height: 45px;">
+								<img class="movie-image mini" src="https://i.ibb.co/Tmj31Dg/animated-series-placeholder6.jpg">
+								<div class="movie-title-and-year" style="display: inline-flex;">
+									<span class="movie-title" style="font-size: 14px;">Rick And Morty</span>
+									<span class="movie-year" style="margin-left: 5px; font-size: 14px; margin-top: 0px;">2013 - Present Time</span>
+								</div>
+							</div>
+							<div class="movie-main-info" style="width: 330px; margin-top: 10px; height: 45px;">
+								<img class="movie-image mini" src="https://i.ibb.co/Tmj31Dg/animated-series-placeholder6.jpg">
+								<div class="movie-title-and-year" style="display: inline-flex;">
+									<span class="movie-title" style="font-size: 14px;">Brickleberry</span>
+									<span class="movie-year" style="margin-left: 5px; font-size: 14px; margin-top: 0px;">2012 - 2015</span>
+								</div>
+							</div>
+							<div class="movie-main-info" style="width: 330px; margin-top: 10px; height: 45px;">
+								<img class="movie-image mini" src="https://i.ibb.co/Tmj31Dg/animated-series-placeholder6.jpg">
+								<div class="movie-title-and-year" style="display: inline-flex;">
+									<span class="movie-title" style="font-size: 14px;">Duncanville</span>
+									<span class="movie-year" style="margin-left: 5px; font-size: 14px; margin-top: 0px;">2020 - Present Time</span>
+								</div>
+							</div>
+							<div class="movie-main-info" style="width: 330px; margin-top: 10px; height: 45px;">
+								<img class="movie-image mini" src="https://i.ibb.co/Tmj31Dg/animated-series-placeholder6.jpg">
+								<div class="movie-title-and-year" style="display: inline-flex;">
+									<span class="movie-title" style="font-size: 14px;">Futurama</span>
+									<span class="movie-year" style="margin-left: 5px; font-size: 14px; margin-top: 0px;">1999 - Present Time</span>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+		`;
 	}
 }
 

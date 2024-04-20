@@ -39,20 +39,20 @@ h6 {
     flex-direction: column;
     justify-content: center;
     align-items: center;
-    background-color: #272727;
+    background-color: rgb(14, 14, 14);
     padding-bottom: 15px;
 }
 
 .movie-item {
     width: 390px;
-    background: #424242;
+    background-color: rgb(20, 20, 20);
     border-radius: 20px;
     overflow: hidden;
     margin-top: 15px;
-    filter: brightness(1);
     transition-duration: 500ms;
     animation-duration: 1s;
     animation-name: show-movies;
+    border: 1px solid rgba(255, 255, 255, .06);
 }
 
 @keyframes show-movies {
@@ -83,8 +83,6 @@ h6 {
     margin-left: 10px;
     display: inline-block;
     position: relative;
-    top: 25%;
-    transform: translateY(-25%);
 }
 
 .movie-title{
@@ -101,7 +99,7 @@ h6 {
 }
 
 .movie-container{
-    background-color: #5A5A5A;
+    background-color: rgb(40, 40, 40);
     border-radius: 15px;
     width: 350px;
     margin-top: 10px;
@@ -117,7 +115,7 @@ h6 {
 }
 
 .movie-item:hover {
-    filter:brightness(1.2);
+    transform: scale(1.025);
     transition-duration: 500ms;
 }
 
@@ -132,19 +130,19 @@ progress{
     height: 5px;
     border-radius: 5px;
     overflow: hidden;
-    background: #FFF553;
+    background: linear-gradient(90deg, #FFF553 0%, #ff7553 100%);
 }
 
 progress::-moz-progress-bar {
-    background: #FFF553;
+    background: linear-gradient(90deg, #FFF553 0%, #ff7553 100%);;
 }
 
 progress::-webkit-progress-value {
-    background: #FFF553; 
+    background: linear-gradient(90deg, #FFF553 0%, #ff7553 100%);;
 }
 
 .menu-header{
-    background: #313131;
+    background-color: rgb(20, 20, 20);
     display: flex;
     align-items: center;
     justify-content: center;
@@ -154,10 +152,10 @@ progress::-webkit-progress-value {
 
 .sidebar {
     position: fixed;
-    transform: translate(-250px, 0px);
-    width: 250px;
+    transform: translate(-300px, 0px);
+    width: 300px;
     height: 100%;
-    background: #424242;
+    background-color: rgb(20, 20, 20);
     transition: all .5s ease;
   }
 
@@ -178,10 +176,12 @@ progress::-webkit-progress-value {
     box-sizing: border-box;
     transition: .4s;
     text-decoration: none;
+    filter: grayscale(100%);
   }
 
   ul li:hover a{
-    background: #5A5A5A;
+    background-color: rgb(30, 30, 30);
+    filter: grayscale(0%);
   }
 
   .sidebar ul a i{
@@ -215,8 +215,8 @@ progress::-webkit-progress-value {
   }
 
   .input-field{
-    background-color: #5A5A5A;
-    border: 2px solid white;
+    background-color: rgb(60, 60, 60);
+    border: 1px solid rgba(255, 255, 255, .06);
     border-radius: 20px;
     width: 100%;
     height: 40px;
@@ -231,13 +231,18 @@ progress::-webkit-progress-value {
   .button-login{
     width: 100%;
     height: 40px;
-    border: 2px solid white;
-    background-color: white;
+    border: none;
+    color: white;
     border-radius: 20px;
     text-align: center;
     text-transform: uppercase;
     cursor: pointer;
     transition-duration: 400ms;
+    background-color: rgb(60, 60, 60);  
+  }
+
+  .button-login:hover{
+    background-color: rgb(80, 80, 80);  
   }
 
   .button-login:active{
@@ -267,8 +272,13 @@ progress::-webkit-progress-value {
   }
 
   .user-info-container{
+    display: flex;
+    justify-content: center;
+    align-items: center;
     animation-duration: 2s;
     animation-name: translate-user-info-container;
+    filter: grayscale(100%);
+    transition-duration: 1s;
   }
 
   @keyframes translate-user-info-container {
@@ -283,6 +293,11 @@ progress::-webkit-progress-value {
     to {
       transform: translateX(0px);
     }
+  }
+
+  .user-info-container:hover{
+    filter: grayscale(0%);
+    transition-duration: 1s;
   }
 
   dialog::backdrop{
@@ -332,7 +347,7 @@ progress::-webkit-progress-value {
  .button-delete-movie{
   width: 100%;
   height: 40px;
-  background-color: #535353;
+  background-color: rgb(40, 40, 40);
   border: none;
   text-align: center;
   text-transform: uppercase;
@@ -342,10 +357,9 @@ progress::-webkit-progress-value {
  }
 
  .button-delete-movie:hover{
-  background-color: #FFF553;
+  background-color: rgb(60, 60, 60);
   transition-duration: 500ms;
   cursor: pointer;
-  color: black;
  }
 
  .wrong-input{
@@ -365,4 +379,85 @@ progress::-webkit-progress-value {
   to {
     border: 2px solid white;
   }
+}
+
+.favorite-movie{
+  transition-duration: 500ms;
+}
+
+.favorite-movie:hover{
+  box-shadow: 0 0 2px 1px #FFF553, 0 0 3px 2px #ff9853, 0 0 4px 3px #ff5353;
+  transition-duration: 500ms;
+}
+
+.movie-main-info{
+  background-color: rgb(40, 40, 40);
+  border-radius: 20px;
+  padding-left: 15px;
+  width: 350px;
+  height: 70px;
+  display: flex;
+  align-items: center;
+}
+
+.fa{
+  background: pink;
+	background: -webkit-radial-gradient(#FFF553 0%, #ff7553 100%);
+	background: radial-gradient(#FFF553 0%, #ff7553 100%);
+  background-clip: text;
+	-webkit-background-clip: text;
+	-webkit-text-fill-color: transparent;
+}
+
+.verified{
+  margin-left: 2px;
+  padding-top: 10px;
+}
+
+.news-title{
+  font-weight: bold;
+}
+
+.awardsContainer {
+  width: 800px;
+  height: 800px;
+  background-color: rgb(20, 20, 20);
+  border-radius: 20px;
+  overflow: hidden;
+  margin-top: 15px;
+  transition-duration: 500ms;
+  animation-duration: 1s;
+  animation-name: show-movies;
+  border: 1px solid rgba(255, 255, 255, .06);
+  margin-left: 300px;
+  padding: 20px;
+  cursor: default !important;
+}
+
+.awardLine{
+  display: inline-flex;
+}
+
+.awardBlock{
+  background-color: rgb(30, 30, 30);
+  border: 1px solid rgba(255, 255, 255, .06);
+  width: 370px;
+  height: 370px;
+  border-radius: 20px;
+  transition-duration: 500ms;
+}
+
+.awardBlock:hover{
+  transform: scale(1.025);
+  transition-duration: 500ms;
+}
+
+.award-icon{
+  margin-left: 5px;
+  margin-right: 5px;
+}
+
+.mini{
+  height: 30px;
+  width: 30px;
 }
