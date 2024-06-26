@@ -1,3 +1,4 @@
+![WatchStormWeb Image](https://i.ibb.co/QdrRvGs/Watch-Storm-Web.jpg)
 # WatchStormWeb
 [![CodeFactor](https://www.codefactor.io/repository/github/kolyafedorenko/watchstormweb/badge)](https://www.codefactor.io/repository/github/kolyafedorenko/watchstormweb)
 ![Website](https://img.shields.io/website?url=https%3A%2F%2Fwatchstorm.ru%2F)
