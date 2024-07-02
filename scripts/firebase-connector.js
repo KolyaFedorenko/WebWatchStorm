@@ -194,7 +194,7 @@ function showAuthorizationDialog(){
 				addOnAddNewMovieListener();
 				addOnButtonDeleteMovieClickListener();
 				addOnNewsButtonClickListener();
-				addOnAwardsButtonClickListener();
+				addOnSettingsButtonClickListener();
 			} 
 			else {
 				alert("wrong");
@@ -266,7 +266,7 @@ function authorizeUser() {
 				addOnAddNewMovieListener();
 				addOnButtonDeleteMovieClickListener();
 				addOnNewsButtonClickListener();
-				addOnAwardsButtonClickListener();
+				addOnSettingsButtonClickListener();
 			} 
 			else {
 				showAuthorizationDialog();
@@ -501,206 +501,60 @@ function addOnNewsButtonClickListener(){
 	}
 }
 
-function addOnAwardsButtonClickListener(){
-	let awardsButton = document.getElementById("awardsButton");
-	awardsButton.onclick = function() {
+function addOnSettingsButtonClickListener(){
+	let settingsButton = document.getElementById("settingsButton");
+	settingsButton.onclick = function() {
 		moviesList.innerHTML = '';
 		moviesList.innerHTML += 				
 		`
-		<div class="awardsContainer movie" style="cursor:pointer;">
+		<div class="settingsContainer movie" style="cursor:pointer;">
 			<div class="awardLine">
-				<div class="awardBlock">
-					<div class="login100-form validate-form">
-						<div class="movie-header award-center">
-							<div class="movie-main-info" style="width: 330px; height: 50px; display: flex; align-items: center; justify-content: center; padding: 0;">
-								<div class="movie-title-and-year" style="display: inline-flex;">
-									<i class="fa-solid fa-award fa fa-fw award-icon"></i>
-									<span class="movie-title">Best Directors</span>
-									<i class="fa-solid fa-award fa fa-fw award-icon"></i>
-								</div>
-							</div>
-							<div class="movie-main-info" style="width: 330px; margin-top: 10px; height: 45px;">
-								<img class="movie-image mini" src="https://i.ibb.co/YLMWZqz/director-placeholder.jpg">
-								<div class="movie-title-and-year" style="display: inline-flex;">
-									<span class="movie-title" style="font-size: 14px;">David Fincher</span>
-									<span class="movie-year" style="margin-left: 5px; font-size: 14px; margin-top: 0px;">1984 - Present Time</span>
-								</div>
-							</div>
-							<div class="movie-main-info" style="width: 330px; margin-top: 10px; height: 45px;">
-								<img class="movie-image mini" src="https://i.ibb.co/YLMWZqz/director-placeholder.jpg">
-								<div class="movie-title-and-year" style="display: inline-flex;">
-									<span class="movie-title" style="font-size: 14px;">Christopher Nolan</span>
-									<span class="movie-year" style="margin-left: 5px; font-size: 14px; margin-top: 0px;">1998 - Present Time</span>
-								</div>
-							</div>
-							<div class="movie-main-info" style="width: 330px; margin-top: 10px; height: 45px;">
-								<img class="movie-image mini" src="https://i.ibb.co/YLMWZqz/director-placeholder.jpg">
-								<div class="movie-title-and-year" style="display: inline-flex;">
-									<span class="movie-title" style="font-size: 14px;">Quentin Tarantino</span>
-									<span class="movie-year" style="margin-left: 5px; font-size: 14px; margin-top: 0px;">1983 - Present Time</span>
-								</div>
-							</div>
-							<div class="movie-main-info" style="width: 330px; margin-top: 10px; height: 45px;">
-								<img class="movie-image mini" src="https://i.ibb.co/YLMWZqz/director-placeholder.jpg">
-								<div class="movie-title-and-year" style="display: inline-flex;">
-									<span class="movie-title" style="font-size: 14px;">Martin Scorsese</span>
-									<span class="movie-year" style="margin-left: 5px; font-size: 14px; margin-top: 0px;">1959 - Present Time</span>
-								</div>
-							</div>
-							<div class="movie-main-info" style="width: 330px; margin-top: 10px; height: 45px;">
-								<img class="movie-image mini" src="https://i.ibb.co/YLMWZqz/director-placeholder.jpg">
-								<div class="movie-title-and-year" style="display: inline-flex;">
-									<span class="movie-title" style="font-size: 14px;">Vince Gilligan</span>
-									<span class="movie-year" style="margin-left: 5px; font-size: 14px; margin-top: 0px;">1990 - Present Time</span>
-								</div>
-							</div>
-						</div>
+				<div class="settingsItem">
+					<div>
+						<i class="fa-solid fa-circle-info fa fa-fw"></i>
+						<span style="font-size: 16px; margin-left: 10px; color: white;">Information</span>
 					</div>
 				</div>
-				<div class="awardBlock" style="margin-left: 20px">
-					<div class="login100-form validate-form">
-						<div class="movie-header award-center">
-							<div class="movie-main-info" style="width: 330px; height: 50px; display: flex; align-items: center; justify-content: center; padding: 0;">
-								<div class="movie-title-and-year">
-									<i class="fa-solid fa-award fa fa-fw award-icon"></i>
-									<span class="movie-title">Best Movies</span>
-									<i class="fa-solid fa-award fa fa-fw award-icon"></i>
-								</div>
-							</div>
-							<div class="movie-main-info" style="width: 330px; margin-top: 10px; height: 45px;">
-								<img class="movie-image mini" src="https://i.ibb.co/Cmtbf8j/movie-placeholder2.jpg">
-								<div class="movie-title-and-year" style="display: inline-flex;">
-									<span class="movie-title" style="font-size: 14px;">Fight Club</span>
-									<span class="movie-year" style="margin-left: 5px; font-size: 14px; margin-top: 0px;">1999, Thriller</span>
-								</div>
-							</div>
-							<div class="movie-main-info" style="width: 330px; margin-top: 10px; height: 45px;">
-								<img class="movie-image mini" src="https://i.ibb.co/Cmtbf8j/movie-placeholder2.jpg">
-								<div class="movie-title-and-year" style="display: inline-flex;">
-									<span class="movie-title" style="font-size: 14px;">American History X</span>
-									<span class="movie-year" style="margin-left: 5px; font-size: 14px; margin-top: 0px;">1998, Drama</span>
-								</div>
-							</div>
-							<div class="movie-main-info" style="width: 330px; margin-top: 10px; height: 45px;">
-								<img class="movie-image mini" src="https://i.ibb.co/Cmtbf8j/movie-placeholder2.jpg">
-								<div class="movie-title-and-year" style="display: inline-flex;">
-									<span class="movie-title" style="font-size: 14px;">Se7en</span>
-									<span class="movie-year" style="margin-left: 5px; font-size: 14px; margin-top: 0px;">1995, Thriller</span>
-								</div>
-							</div>
-							<div class="movie-main-info" style="width: 330px; margin-top: 10px; height: 45px;">
-								<img class="movie-image mini" src="https://i.ibb.co/Cmtbf8j/movie-placeholder2.jpg">
-								<div class="movie-title-and-year" style="display: inline-flex;">
-									<span class="movie-title" style="font-size: 14px;">Drive</span>
-									<span class="movie-year" style="margin-left: 5px; font-size: 14px; margin-top: 0px;">2011, Thriller</span>
-								</div>
-							</div>
-							<div class="movie-main-info" style="width: 330px; margin-top: 10px; height: 45px;">
-								<img class="movie-image mini" src="https://i.ibb.co/Cmtbf8j/movie-placeholder2.jpg">
-								<div class="movie-title-and-year" style="display: inline-flex;">
-									<span class="movie-title" style="font-size: 14px;">The Gentlemen</span>
-									<span class="movie-year" style="margin-left: 5px; font-size: 14px; margin-top: 0px;">2019, Action Movie</span>
-								</div>
-							</div>
-						</div>
+				<div class="settingsItem" style="margin-top: 20px;">
+					 <div>
+					 	<i class="fa-solid fa-circle-check fa fa-fw"></i>
+						<span style="font-size: 16px; margin-left: 10px; color: white;">Verification</span>
 					</div>
 				</div>
-			</div>
-			<div class="awardLine" style="margin-top: 20px">
-				<div class="awardBlock">
-					<div class="login100-form validate-form">
-						<div class="movie-header award-center">
-							<div class="movie-main-info" style="width: 330px; height: 50px; display: flex; align-items: center; justify-content: center; padding: 0;">
-								<div class="movie-title-and-year" style="display: inline-flex;">
-									<i class="fa-solid fa-award fa fa-fw award-icon"></i>
-									<span class="movie-title">Best TV Series</span>
-									<i class="fa-solid fa-award fa fa-fw award-icon"></i>
-								</div>
-							</div>
-							<div class="movie-main-info" style="width: 330px; margin-top: 10px; height: 45px;">
-								<img class="movie-image mini" src="https://i.ibb.co/7yDVRst/tv-series-placeholder2.jpg">
-								<div class="movie-title-and-year" style="display: inline-flex;">
-									<span class="movie-title" style="font-size: 14px;">Breaking Bad</span>
-									<span class="movie-year" style="margin-left: 5px; font-size: 14px; margin-top: 0px;">2008 - 2013</span>
-								</div>
-							</div>
-							<div class="movie-main-info" style="width: 330px; margin-top: 10px; height: 45px;">
-								<img class="movie-image mini" src="https://i.ibb.co/7yDVRst/tv-series-placeholder2.jpg">
-								<div class="movie-title-and-year" style="display: inline-flex;">
-									<span class="movie-title" style="font-size: 14px;">Snowfall</span>
-									<span class="movie-year" style="margin-left: 5px; font-size: 14px; margin-top: 0px;">2017 - 2023</span>
-								</div>
-							</div>
-							<div class="movie-main-info" style="width: 330px; margin-top: 10px; height: 45px;">
-								<img class="movie-image mini" src="https://i.ibb.co/7yDVRst/tv-series-placeholder2.jpg">
-								<div class="movie-title-and-year" style="display: inline-flex;">
-									<span class="movie-title" style="font-size: 14px;">Mindhunter</span>
-									<span class="movie-year" style="margin-left: 5px; font-size: 14px; margin-top: 0px;">2017 - 2019</span>
-								</div>
-							</div>
-							<div class="movie-main-info" style="width: 330px; margin-top: 10px; height: 45px;">
-								<img class="movie-image mini" src="https://i.ibb.co/7yDVRst/tv-series-placeholder2.jpg">
-								<div class="movie-title-and-year" style="display: inline-flex;">
-									<span class="movie-title" style="font-size: 14px;">True Detective</span>
-									<span class="movie-year" style="margin-left: 5px; font-size: 14px; margin-top: 0px;">2014 - Present Time</span>
-								</div>
-							</div>
-							<div class="movie-main-info" style="width: 330px; margin-top: 10px; height: 45px;">
-								<img class="movie-image mini" src="https://i.ibb.co/7yDVRst/tv-series-placeholder2.jpg">
-								<div class="movie-title-and-year" style="display: inline-flex;">
-									<span class="movie-title" style="font-size: 14px;">Better Call Saul</span>
-									<span class="movie-year" style="margin-left: 5px; font-size: 14px; margin-top: 0px;">2015 - 2022</span>
-								</div>
-							</div>
-						</div>
+				<div class="settingsItem" style="margin-top: 20px;">
+					<div>
+						<i class="fa-solid fa-lock fa fa-fw"></i>
+						<span style="font-size: 16px; margin-left: 10px; color: white;">Change 6-digit Code</span>
 					</div>
 				</div>
-				<div class="awardBlock" style="margin-left: 20px">
-					<div class="login100-form validate-form">
-						<div class="movie-header award-center">
-							<div class="movie-main-info" style="width: 330px; height: 50px; display: flex; align-items: center; justify-content: center; padding: 0;">
-								<div class="movie-title-and-year" style="display: inline-flex;">
-									<i class="fa-solid fa-award fa fa-fw award-icon"></i>
-									<span class="movie-title">Best Animated Series</span>
-									<i class="fa-solid fa-award fa fa-fw award-icon"></i>
-								</div>
-							</div>
-							<div class="movie-main-info" style="width: 330px; margin-top: 10px; height: 45px;">
-								<img class="movie-image mini" src="https://i.ibb.co/Tmj31Dg/animated-series-placeholder6.jpg">
-								<div class="movie-title-and-year" style="display: inline-flex;">
-									<span class="movie-title" style="font-size: 14px;">The Simpsons</span>
-									<span class="movie-year" style="margin-left: 5px; font-size: 14px; margin-top: 0px;">1989 - Present Time</span>
-								</div>
-							</div>
-							<div class="movie-main-info" style="width: 330px; margin-top: 10px; height: 45px;">
-								<img class="movie-image mini" src="https://i.ibb.co/Tmj31Dg/animated-series-placeholder6.jpg">
-								<div class="movie-title-and-year" style="display: inline-flex;">
-									<span class="movie-title" style="font-size: 14px;">Rick And Morty</span>
-									<span class="movie-year" style="margin-left: 5px; font-size: 14px; margin-top: 0px;">2013 - Present Time</span>
-								</div>
-							</div>
-							<div class="movie-main-info" style="width: 330px; margin-top: 10px; height: 45px;">
-								<img class="movie-image mini" src="https://i.ibb.co/Tmj31Dg/animated-series-placeholder6.jpg">
-								<div class="movie-title-and-year" style="display: inline-flex;">
-									<span class="movie-title" style="font-size: 14px;">Brickleberry</span>
-									<span class="movie-year" style="margin-left: 5px; font-size: 14px; margin-top: 0px;">2012 - 2015</span>
-								</div>
-							</div>
-							<div class="movie-main-info" style="width: 330px; margin-top: 10px; height: 45px;">
-								<img class="movie-image mini" src="https://i.ibb.co/Tmj31Dg/animated-series-placeholder6.jpg">
-								<div class="movie-title-and-year" style="display: inline-flex;">
-									<span class="movie-title" style="font-size: 14px;">Duncanville</span>
-									<span class="movie-year" style="margin-left: 5px; font-size: 14px; margin-top: 0px;">2020 - Present Time</span>
-								</div>
-							</div>
-							<div class="movie-main-info" style="width: 330px; margin-top: 10px; height: 45px;">
-								<img class="movie-image mini" src="https://i.ibb.co/Tmj31Dg/animated-series-placeholder6.jpg">
-								<div class="movie-title-and-year" style="display: inline-flex;">
-									<span class="movie-title" style="font-size: 14px;">Futurama</span>
-									<span class="movie-year" style="margin-left: 5px; font-size: 14px; margin-top: 0px;">1999 - Present Time</span>
-								</div>
-							</div>
-						</div>
+				<div class="settingsItem" style="margin-top: 20px;">
+					<div>
+						<i class="fa-solid fa-file fa fa-fw"></i>
+						<span style="font-size: 16px; margin-left: 10px; color: white;">Export Movies to JSON</span>
+					</div>
+				</div>
+				<div class="settingsItem" style="margin-top: 20px;">
+					<div>
+						<i class="fa-solid fa-file-arrow-down fa fa-fw"></i>
+						<span style="font-size: 16px; margin-left: 10px; color: white;">Download WatchStorm</span>
+					</div>
+				</div>
+				<div class="settingsItem" style="margin-top: 20px;">
+					<div>
+						<i class="fa-brands fa-github fa fa-fw"></i>
+						<span style="font-size: 16px; margin-left: 10px; color: white;">WatchStorm Github Repository</span>
+					</div>
+				</div>
+				<div class="settingsItem" style="margin-top: 20px;">
+					<div>
+						<i class="fa-solid fa-star fa fa-fw"></i>
+						<span style="font-size: 16px; margin-left: 10px; color: white;">Leave a Feedback</span>
+					</div>
+				</div>
+				<div class="settingsItem" style="margin-top: 20px;">
+					<div>
+						<i class="fa-solid fa-envelope fa fa-fw"></i>
+						<span style="font-size: 16px; margin-left: 10px; color: white;">Contact The Developer</span>
 					</div>
 				</div>
 			</div>
